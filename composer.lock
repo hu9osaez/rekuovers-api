@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e02a634bf39120641534496e5a29387c",
+    "content-hash": "6cc91fc274aca746f9f237687825ae67",
     "packages": [
         {
             "name": "dingo/api",
@@ -4497,7 +4497,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.6.4"
+        "php": "^5.6.0"
     },
     "platform-dev": []
 }

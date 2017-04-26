@@ -11,7 +11,7 @@ class LikesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('likes')->truncate();
+        //DB::table('likes')->truncate();
 
         for ($i=0; $i < 100; $i++) {
             DB::table('likes')->insert(

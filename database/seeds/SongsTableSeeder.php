@@ -12,7 +12,7 @@ class SongsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('songs')->truncate();
+        //DB::table('songs')->truncate();
 
         Song::create(['original_song_id' => 1, 'type' => 'cover', 'youtube_id' => '-MkrfpSA1ec']);
         Song::create(['original_song_id' => 1, 'type' => 'cover', 'youtube_id' => 'qu9V8jhWeYA']);

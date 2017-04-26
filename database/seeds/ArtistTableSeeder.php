@@ -11,7 +11,7 @@ class ArtistTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('artists')->truncate();
+        //DB::table('artists')->truncate();
         DB::table('artists')->insert([
             ['name' => 'The Weeknd'],
             ['name' => 'Charlie Puth'],

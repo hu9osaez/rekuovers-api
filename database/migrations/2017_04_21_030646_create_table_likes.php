@@ -17,7 +17,7 @@ class CreateTableLikes extends Migration
             $table->increments('id');
             $table->integer('song_id')->unsigned();
 
-            $table->foreign('song_id')->references('id')->on('likes');
+            $table->foreign('song_id')->references('id')->on('songs');
         });
     }
 

@@ -13,11 +13,12 @@
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\v1'], function ($api) {
-    //$api->get('artists', 'ArtistController@index');
     $api->get('artists/{id}', 'ArtistController@show');
 
     $api->get('songs', 'SongController@index');
     $api->get('songs/{id}', 'SongController@show');
+    $api->get('songs/{id}/original-song', 'SongOriginalSongController@show');
 
     $api->get('original-song/{id}', 'OriginalSongController@show');
+    //$api->get('original-song/{id}/artist', 'OriginalSongArtistController@show');
 });

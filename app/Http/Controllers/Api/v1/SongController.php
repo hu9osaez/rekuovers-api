@@ -19,7 +19,7 @@ class SongController extends BaseController
     }
 
     public function show($id) {
-        $song = $this->song->withCount('likes')->find($id);
+        $song = $this->song->find($id);
 
         if(!$song) {
             return $this->response->errorNotFound();

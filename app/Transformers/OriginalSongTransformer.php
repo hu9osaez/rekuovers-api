@@ -8,6 +8,12 @@ class OriginalSongTransformer extends TransformerAbstract
 {
     public function transform(OriginalSong $originalSong)
     {
-        return $originalSong->attributesToArray();
+        $formattedOriginalSong = [
+            'id' => (int) $originalSong->id,
+            'artist_id' => (int) $originalSong->artist_id,
+            'title' => $originalSong->title
+        ];
+
+        return $formattedOriginalSong;
     }
 }

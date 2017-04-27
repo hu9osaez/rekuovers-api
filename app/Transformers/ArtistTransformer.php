@@ -9,11 +9,16 @@ class ArtistTransformer extends TransformerAbstract
 
     public function transform(Artist $artist)
     {
-        return $artist->attributesToArray();
+        $formattedArtist = [
+            'id' => $artist->id,
+            'name' => $artist->name
+        ];
+
+        return $formattedArtist;
     }
 
     public function includeOriginalSongs(Artist $artist)
     {
-        return $this->collection($artist->originalSongs()->get(), new OriginalSongTransformer());
+        return $this->collection($artist->originalSongs, new OriginalSongTransformer());
     }
 }

@@ -12,11 +12,11 @@ class ArtistController extends BaseController {
         $this->artist = $artist;
     }
 
-    public function index() {
+    /*public function index() {
         $artists = $this->artist->paginate();
 
         return $this->response->paginator($artists, new ArtistTransformer());
-    }
+    }*/
 
     public function show($id) {
         $artist = $this->artist->find($id);

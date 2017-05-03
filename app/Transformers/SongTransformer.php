@@ -5,8 +5,6 @@ use League\Fractal\TransformerAbstract;
 
 class SongTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['original_song'];
-
     public function transform(Song $song)
     {
         $formattedSong = [
@@ -18,11 +16,7 @@ class SongTransformer extends TransformerAbstract
             'created_at' => $song->created_at->toDateTimeString(),
             'updated_at' => $song->updated_at->toDateTimeString()
         ];
-        return $formattedSong;
-    }
 
-    public function includeOriginalSong(Song $song)
-    {
-        return $this->item($song->originalSong, new OriginalSongTransformer());
+        return $formattedSong;
     }
 }

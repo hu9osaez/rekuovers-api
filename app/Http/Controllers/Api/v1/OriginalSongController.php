@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Api\v1;
 
 use App\OriginalSong;
+use App\Transformers\ArtistTransformer;
 use App\Transformers\OriginalSongTransformer;
 
 class OriginalSongController extends BaseController
@@ -12,6 +13,12 @@ class OriginalSongController extends BaseController
         $this->originalSong = $originalSong;
     }
 
+    public function index() {
+        $originalSongs = $this->originalSong->paginate();
+
+        return $this->response->paginator($originalSongs, new OriginalSongTransformer());
+    }
+
     public function show($id) {
         $originalSong = $this->originalSong->find($id);
 
@@ -20,5 +27,15 @@ class OriginalSongController extends BaseController
         }
 
         return $this->response->item($originalSong, new OriginalSongTransformer());
+    }
+
+    public function showArtist($id) {
+        $originalSong = $this->originalSong->find($id);
+
+        if(!$originalSong) {
+            return $this->response->errorNotFound();
+        }
+
+        return $this->response->item($originalSong->artist, new ArtistTransformer());
     }
 }

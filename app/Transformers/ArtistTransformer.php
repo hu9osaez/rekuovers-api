@@ -5,20 +5,13 @@ use League\Fractal\TransformerAbstract;
 
 class ArtistTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['original_songs'];
-
     public function transform(Artist $artist)
     {
         $formattedArtist = [
-            'id' => $artist->id,
+            'id' => (int) $artist->id,
             'name' => $artist->name
         ];
 
         return $formattedArtist;
-    }
-
-    public function includeOriginalSongs(Artist $artist)
-    {
-        return $this->collection($artist->originalSongs, new OriginalSongTransformer());
     }
 }

@@ -2,6 +2,7 @@
 
 
 use App\Song;
+use App\Transformers\OriginalSongTransformer;
 use App\Transformers\SongTransformer;
 
 class SongController extends BaseController
@@ -26,5 +27,15 @@ class SongController extends BaseController
         }
 
         return $this->response->item($song, new SongTransformer());
+    }
+
+    public function showOriginalSong($id) {
+        $song = $this->song->find($id);
+
+        if(!$song) {
+            return $this->response->errorNotFound();
+        }
+
+        return $this->response->item($song->originalSong, new OriginalSongTransformer());
     }
 }

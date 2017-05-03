@@ -19,5 +19,6 @@ class SongsTableSeeder extends Seeder
         Song::create(['original_song_id' => 1, 'type' => 'cover', 'youtube_id' => '3AMHN0zgTRc']);
         Song::create(['original_song_id' => 2, 'type' => 'remix', 'youtube_id' => 'kwW0IAkwIWc']);
         Song::create(['original_song_id' => 3, 'type' => 'cover', 'youtube_id' => 'rVJVzyR-lCQ']);
+        Song::create(['original_song_id' => 4, 'type' => 'cover', 'youtube_id' => 'g_uYn8AVqeU']);
     }
 }

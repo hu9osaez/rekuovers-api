@@ -89,12 +89,12 @@ if ($app->environment() == 'local') {
     $app->register(Wn\Generators\CommandsServiceProvider::class);
 }
 
-$app['Dingo\Api\Transformer\Factory']->setAdapter(function () {
+/*$app['Dingo\Api\Transformer\Factory']->setAdapter(function () {
     $fractal = new League\Fractal\Manager;
     $serializer = new League\Fractal\Serializer\ArraySerializer();
     $fractal->setSerializer($serializer);
     return new Dingo\Api\Transformer\Adapter\Fractal($fractal);
-});
+});*/
 
 /*
 |--------------------------------------------------------------------------

@@ -2,6 +2,7 @@
 
 use App\Artist;
 use App\Transformers\ArtistTransformer;
+use App\Transformers\OriginalSongTransformer;
 
 class ArtistController extends BaseController {
 
@@ -12,6 +13,12 @@ class ArtistController extends BaseController {
         $this->artist = $artist;
     }
 
+    public function index() {
+        $artists = $this->artist->paginate();
+
+        return $this->response->paginator($artists, new ArtistTransformer());
+    }
+
     public function show($id) {
         $artist = $this->artist->find($id);
 
@@ -20,5 +27,15 @@ class ArtistController extends BaseController {
         }
 
         return $this->response->item($artist, new ArtistTransformer());
+    }
+
+    public function showOriginalSongs($id) {
+        $artist = $this->artist->find($id);
+
+        if(!$artist) {
+            return $this->response->errorNotFound();
+        }
+
+        return $this->response->paginator($artist->originalSongs()->paginate(), new OriginalSongTransformer());
     }
 }

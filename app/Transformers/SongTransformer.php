@@ -10,11 +10,11 @@ class SongTransformer extends TransformerAbstract
         $formattedSong = [
             'id' => (int) $song->id,
             'original_song_id' => $song->original_song_id,
+            'artist_id' => $song->originalSong->artist->id,
             'type' => $song->type,
             'youtube_id' => $song->youtube_id,
             'likes_count' => $song->likes->count(),
-            'created_at' => $song->created_at->toDateTimeString(),
-            'updated_at' => $song->updated_at->toDateTimeString()
+            'created_at' => $song->created_at->toDateTimeString()
         ];
 
         return $formattedSong;

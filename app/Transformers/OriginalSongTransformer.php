@@ -1,7 +1,6 @@
 <?php namespace App\Transformers;
 
-
-use App\OriginalSong;
+use App\Models\OriginalSong;
 use League\Fractal\TransformerAbstract;
 
 class OriginalSongTransformer extends TransformerAbstract

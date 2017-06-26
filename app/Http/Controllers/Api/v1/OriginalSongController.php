@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Api\v1;
 
-use App\OriginalSong;
+use App\Models\OriginalSong;
 use App\Transformers\ArtistTransformer;
 use App\Transformers\OriginalSongTransformer;
 

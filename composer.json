@@ -13,7 +13,7 @@
         "palanik/lumen-cors": "dev-master",
         "league/fractal": "^0.16.0",
         "vluzrmos/tinker": "^1.3",
-        "barryvdh/laravel-debugbar": "^2.3"
+        "tymon/jwt-auth": "1.0.0-beta.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

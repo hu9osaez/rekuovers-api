@@ -1,9 +1,9 @@
 <?php namespace App\Http\Controllers\Api\v1;
 
-
-use App\Song;
+use App\Models\Song;
 use App\Transformers\OriginalSongTransformer;
 use App\Transformers\SongTransformer;
+use Illuminate\Support\Facades\Cache;
 
 class SongController extends BaseController
 {
@@ -15,7 +15,8 @@ class SongController extends BaseController
     }
 
     public function index() {
-        $songs = $this->song->paginate(12);
+        $songs = $this->song->orderBy('id', 'desc')->paginate(12);
+
         return $this->response->paginator($songs, new SongTransformer());
     }
 

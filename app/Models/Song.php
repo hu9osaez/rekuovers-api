@@ -1,4 +1,4 @@
-<?php namespace App;
+<?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -8,11 +8,11 @@ class Song extends Model {
 
     public function originalSong()
     {
-        return $this->belongsTo("App\OriginalSong");
+        return $this->belongsTo(OriginalSong::class);
     }
 
     public function likes()
     {
-        return $this->hasMany("App\Like");
+        return $this->hasMany(Like::class);
     }
 }

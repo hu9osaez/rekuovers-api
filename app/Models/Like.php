@@ -1,4 +1,4 @@
-<?php namespace App;
+<?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +10,6 @@ class Like extends Model {
 
     public function song()
     {
-        return $this->belongsTo("App\Song");
+        return $this->belongsTo(Song::class);
     }
 }

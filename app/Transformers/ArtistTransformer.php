@@ -1,6 +1,6 @@
 <?php namespace App\Transformers;
 
-use App\Artist;
+use App\Models\Artist;
 use League\Fractal\TransformerAbstract;
 
 class ArtistTransformer extends TransformerAbstract

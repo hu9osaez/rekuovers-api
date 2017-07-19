@@ -6,21 +6,36 @@ use Illuminate\Http\Request;
 
 class AuthController extends BaseController
 {
+    private $loginRules = [
+        'login' => 'required',
+        'password' => 'required'
+    ];
+
+    private $signupRules = [
+        'name' => 'required',
+        'username' => 'required|unique:users,username',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|min:6'
+    ];
+
     public function authorize(Request $request) {
-        $credentials = $request->only('email', 'password');
-
-        $rules = [
-            'email' => 'required',
-            'password' => 'required'
-        ];
-
-        $validator = app('validator')->make($credentials, $rules);
+        $validator = app('validator')->make($request->only('login', 'password'), $this->loginRules);
 
         if ($validator->fails()) {
             throw new ValidationHttpException($validator->errors());
         }
 
-        if(!$token = \Auth::attempt($credentials)) {
+        $loginField = filter_var($request->input('login'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+        $request->merge([
+            $loginField => $request->input('login')
+        ]);
+
+        $credentials = $request->only($loginField, 'password');
+
+        print_r($credentials);
+
+        if(!$token = app('auth')->attempt($credentials)) {
             $this->response->errorUnauthorized();
         }
 
@@ -28,7 +43,7 @@ class AuthController extends BaseController
     }
 
     public function signup(Request $request) {
-        $credentials = $request->only('email', 'name', 'password');
+        $credentials = $request->only('name', 'username', 'email', 'password');
 
         $user = User::create([
             'name' => $credentials['name'],

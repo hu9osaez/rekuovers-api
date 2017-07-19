@@ -1,12 +1,24 @@
 <?php namespace App\Http\Controllers\Api\v1;
 
 use App\Models\User;
+use Dingo\Api\Exception\ValidationHttpException;
 use Illuminate\Http\Request;
 
 class AuthController extends BaseController
 {
     public function authorize(Request $request) {
         $credentials = $request->only('email', 'password');
+
+        $rules = [
+            'email' => 'required',
+            'password' => 'required'
+        ];
+
+        $validator = app('validator')->make($credentials, $rules);
+
+        if ($validator->fails()) {
+            throw new ValidationHttpException($validator->errors());
+        }
 
         if(!$token = \Auth::attempt($credentials)) {
             $this->response->errorUnauthorized();
@@ -19,8 +31,8 @@ class AuthController extends BaseController
         $credentials = $request->only('email', 'name', 'password');
 
         $user = User::create([
-            'email' => $credentials['email'],
             'name' => $credentials['name'],
+            'email' => $credentials['email'],
             'password' => app('hash')->make($credentials['password'])
         ]);
 

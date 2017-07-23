@@ -13,10 +13,10 @@
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\v1'], function ($api) {
-    $api->post('auth/login', 'AuthController@authorize');
+    $api->post('auth/login', 'AuthController@login');
     $api->post('auth/signup', 'AuthController@signup');
 
-    //$api->get('me', 'UserController@show');
+    $api->get('me', ['uses' => 'AuthController@showMe', 'middleware' => 'api.auth']);
 
     $api->get('artists', 'ArtistController@index');
     $api->get('artists/{id}', 'ArtistController@show');

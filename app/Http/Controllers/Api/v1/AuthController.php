@@ -18,7 +18,7 @@ class AuthController extends BaseController
         'password' => 'required|min:6'
     ];
 
-    public function authorize(Request $request) {
+    public function login(Request $request) {
         $validator = app('validator')->make($request->only('login', 'password'), $this->loginRules);
 
         if ($validator->fails()) {
@@ -33,8 +33,6 @@ class AuthController extends BaseController
 
         $credentials = $request->only($loginField, 'password');
 
-        print_r($credentials);
-
         if(!$token = app('auth')->attempt($credentials)) {
             $this->response->errorUnauthorized();
         }
@@ -45,8 +43,15 @@ class AuthController extends BaseController
     public function signup(Request $request) {
         $credentials = $request->only('name', 'username', 'email', 'password');
 
+        $validator = app('validator')->make($credentials, $this->signupRules);
+
+        if ($validator->fails()) {
+            throw new ValidationHttpException($validator->errors());
+        }
+
         $user = User::create([
             'name' => $credentials['name'],
+            'username' => $credentials['username'],
             'email' => $credentials['email'],
             'password' => app('hash')->make($credentials['password'])
         ]);
@@ -55,8 +60,12 @@ class AuthController extends BaseController
             $this->response->errorUnauthorized();
         }
 
-        $token = \Auth::fromUser($user);
+        $token = app('auth')->fromUser($user);
 
         return $this->response->array(compact('token'))->setStatusCode(201);
+    }
+
+    public function showMe() {
+        return app('auth')->user();
     }
 }

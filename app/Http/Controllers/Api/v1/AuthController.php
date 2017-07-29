@@ -1,8 +1,11 @@
 <?php namespace App\Http\Controllers\Api\v1;
 
+use App\Models\Authorization;
 use App\Models\User;
+use App\Transformers\AuthorizationTransformer;
 use Dingo\Api\Exception\ValidationHttpException;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends BaseController
 {
@@ -37,7 +40,10 @@ class AuthController extends BaseController
             $this->response->errorUnauthorized();
         }
 
-        return $this->response->array(compact('token'))->setStatusCode(201);
+        $authorization = new Authorization($token);
+
+        //return $this->response->array(compact('token'))->statusCode(201);
+        return $this->response->item($authorization, new AuthorizationTransformer())->statusCode(201);
     }
 
     public function signup(Request $request) {
@@ -61,11 +67,19 @@ class AuthController extends BaseController
         }
 
         $token = app('auth')->fromUser($user);
+        $authorization = new Authorization($token);
 
-        return $this->response->array(compact('token'))->setStatusCode(201);
+        //return $this->response->array(compact('token'))->statusCode(201);
+        return $this->response->item($authorization, new AuthorizationTransformer())->statusCode(201);
     }
 
     public function showMe() {
-        return app('auth')->user();
+        //return app('auth')->user();
+        return app('auth')->payload();
+    }
+
+    public function token() {
+        $token = JWTAuth::getToken();
+        return $token;
     }
 }

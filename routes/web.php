@@ -14,3 +14,10 @@
 $app->get('/', function () use ($app) {
     return $app->version();
 });
+
+if ($app->environment() == 'local')
+{
+    $app->group(['namespace' => '\Rap2hpoutre\LaravelLogViewer'], function() use ($app) {
+        $app->get('logs', 'LogViewerController@index');
+    });
+}

@@ -27,6 +27,7 @@ $app->withFacades();
 $app->withEloquent();
 
 $app->configure('auth');
+$app->configure('jwt');
 
 /*
 |--------------------------------------------------------------------------
@@ -61,11 +62,12 @@ $app->singleton(
 */
 
 $app->middleware([
-    'cors' => palanik\lumen\Middleware\LumenCors::class
+    'cors' => palanik\lumen\Middleware\LumenCors::class // @TODO: Change for https://github.com/barryvdh/laravel-cors
 ]);
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
+    'jwt.refresh' => Tymon\JWTAuth\Middleware\RefreshToken::class
 ]);
 
 /*
@@ -79,18 +81,13 @@ $app->routeMiddleware([
 |
 */
 
-//$app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
 
+// $app->register(App\Providers\EventServiceProvider::class);
+$app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 
 $app->register(Dingo\Api\Provider\LumenServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
-
-if ($app->environment() == 'local') {
-    $app->register(Vluzrmos\Tinker\TinkerServiceProvider::class);
-    $app->register(Wn\Generators\CommandsServiceProvider::class);
-}
 
 $app['Dingo\Api\Transformer\Factory']->setAdapter(function () {
     $fractal = new League\Fractal\Manager;

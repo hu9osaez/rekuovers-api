@@ -14,8 +14,8 @@ class CreateTableSongs extends Migration
     public function up()
     {
         Schema::create('songs', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('original_song_id')->unsigned();
+            $table->bigIncrements('id');
+            $table->bigInteger('original_song_id')->unsigned();
             $table->string('type', 5);
             $table->string('youtube_id');
             $table->timestamps();

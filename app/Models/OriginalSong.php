@@ -9,10 +9,10 @@ class OriginalSong extends Model {
     public $timestamps = false;
 
     /**
-     * Get the artist that owns the original song.
+     * Get the artist(s) that owns the original song.
      */
-    public function artist()
+    public function artists()
     {
-        return $this->belongsTo(Artist::class);
+        return $this->belongsToMany(Artist::class, 'artist_originalsong');
     }
 }

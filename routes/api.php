@@ -28,5 +28,5 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\v1'], function ($a
 
     $api->get('original-songs', 'OriginalSongController@index');
     $api->get('original-songs/{id}', 'OriginalSongController@show');
-    $api->get('original-songs/{id}/artist', 'OriginalSongController@showArtist');
+    $api->get('original-songs/{id}/artists', 'OriginalSongController@showArtists');
 });

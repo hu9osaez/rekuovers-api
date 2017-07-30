@@ -34,13 +34,13 @@ class OriginalSongController extends BaseController
         return $this->response->item($originalSong, new OriginalSongTransformer());
     }
 
-    public function showArtist($id) {
+    public function showArtists($id) {
         $originalSong = $this->originalSong->find($id);
 
         if(!$originalSong) {
             return $this->response->errorNotFound();
         }
 
-        return $this->response->item($originalSong->artist, new ArtistTransformer());
+        return $this->response->collection($originalSong->artists, new ArtistTransformer());
     }
 }

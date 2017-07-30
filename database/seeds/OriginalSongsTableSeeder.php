@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\OriginalSong;
 use Illuminate\Database\Seeder;
 
 class OriginalSongsTableSeeder extends Seeder
@@ -13,10 +14,15 @@ class OriginalSongsTableSeeder extends Seeder
     {
         //DB::table('original_songs')->truncate();
         DB::table('original_songs')->insert([
-            ['artist_id' => 1, 'title' => 'I Feel It Coming'],
-            ['artist_id' => 2, 'title' => 'We don\'t talk anymore'],
-            ['artist_id' => 3, 'title' => 'Fake love'],
-            ['artist_id' => 3, 'title' => 'One Dance']
+            ['title' => 'I Feel It Coming'],
+            ['title' => 'We don\'t talk anymore'],
+            ['title' => 'Fake love'],
+            ['title' => 'One Dance']
         ]);
+
+        OriginalSong::find(1)->artists()->attach([1,2]);
+        OriginalSong::find(2)->artists()->attach([3,4]);
+        OriginalSong::find(3)->artists()->attach(5);
+        OriginalSong::find(4)->artists()->attach(5);
     }
 }

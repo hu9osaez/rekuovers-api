@@ -8,11 +8,15 @@ class Artist extends Model {
 
     public $timestamps = false;
 
+    protected $hidden = [
+        'pivot'
+    ];
+
     /**
      * Get the original songs for the artist.
      */
     public function originalSongs()
     {
-        return $this->hasMany(OriginalSong::class);
+        return $this->belongsToMany(OriginalSong::class, 'artist_originalsong');
     }
 }

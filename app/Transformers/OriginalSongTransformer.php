@@ -9,8 +9,8 @@ class OriginalSongTransformer extends TransformerAbstract
     {
         $formattedOriginalSong = [
             'id' => (int) $originalSong->id,
-            'artist_id' => (int) $originalSong->artist_id,
-            'title' => $originalSong->title
+            'title' => $originalSong->title,
+            'artists' => $originalSong->artists
         ];
 
         return $formattedOriginalSong;

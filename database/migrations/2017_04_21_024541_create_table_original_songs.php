@@ -14,11 +14,8 @@ class CreateTableOriginalSongs extends Migration
     public function up()
     {
         Schema::create('original_songs', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('artist_id')->unsigned();
+            $table->bigIncrements('id');
             $table->string('title');
-
-            $table->foreign('artist_id')->references('id')->on('artists');
         });
     }
 

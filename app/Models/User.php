@@ -34,6 +34,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     ];
 
     /**
+     * RELATIONS
+     */
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    /**
      * MUTATORS
      */
     public function setUsernameAttribute($username)

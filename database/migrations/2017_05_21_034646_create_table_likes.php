@@ -16,8 +16,13 @@ class CreateTableLikes extends Migration
         Schema::create('likes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('song_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+
+            $table->softDeletes();
+            $table->timestamps();
 
             $table->foreign('song_id')->references('id')->on('songs');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

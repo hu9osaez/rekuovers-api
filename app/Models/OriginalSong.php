@@ -2,7 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class OriginalSong extends Model {
+class OriginalSong extends Model
+{
 
     protected $table = 'original_songs';
 

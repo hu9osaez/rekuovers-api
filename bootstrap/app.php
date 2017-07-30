@@ -26,9 +26,6 @@ $app = new Laravel\Lumen\Application(
 $app->withFacades();
 $app->withEloquent();
 
-$app->configure('auth');
-$app->configure('jwt');
-
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -66,8 +63,7 @@ $app->middleware([
 ]);
 
 $app->routeMiddleware([
-    'auth' => App\Http\Middleware\Authenticate::class,
-    'jwt.refresh' => Tymon\JWTAuth\Middleware\RefreshToken::class
+    'auth' => App\Http\Middleware\Authenticate::class
 ]);
 
 /*
@@ -87,17 +83,12 @@ $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 
 $app->register(Dingo\Api\Provider\LumenServiceProvider::class);
-$app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 
 $app['Dingo\Api\Transformer\Factory']->setAdapter(function () {
     $fractal = new League\Fractal\Manager;
     $serializer = new League\Fractal\Serializer\ArraySerializer();
     $fractal->setSerializer($serializer);
     return new Dingo\Api\Transformer\Adapter\Fractal($fractal);
-});
-
-$app['Dingo\Api\Auth\Auth']->extend('jwt', function ($app) {
-    return new Dingo\Api\Auth\Provider\JWT($app['Tymon\JWTAuth\JWTAuth']);
 });
 
 /*

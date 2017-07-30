@@ -4,6 +4,11 @@ use App\Models\OriginalSong;
 use App\Transformers\ArtistTransformer;
 use App\Transformers\OriginalSongTransformer;
 
+/**
+ * Original song resource representation.
+ *
+ * @Resource("Original Songs", uri="/original-songs")
+ */
 class OriginalSongController extends BaseController
 {
     private $originalSong;

@@ -5,9 +5,8 @@ use Laravel\Lumen\Auth\Authorizable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject
+class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable;
 
@@ -29,7 +28,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $hidden = [
-        'password'
+        'password',
+        'api_token',
+        'updated_at'
     ];
 
     /**
@@ -55,13 +56,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         $this->attributes['email'] = $email;
     }
 
-    public function getJWTIdentifier()
+    public function generateToken()
     {
-        return $this->getKey();
-    }
+        $this->api_token = str_random(60);
+        $this->save();
 
-    public function getJWTCustomClaims()
-    {
-        return [];
+        return $this->api_token;
     }
 }

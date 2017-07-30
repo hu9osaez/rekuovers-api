@@ -4,6 +4,11 @@ use App\Models\Artist;
 use App\Transformers\ArtistTransformer;
 use App\Transformers\OriginalSongTransformer;
 
+/**
+ * Artist resource representation.
+ *
+ * @Resource("Artists", uri="/artists")
+ */
 class ArtistController extends BaseController {
 
     private $artist;

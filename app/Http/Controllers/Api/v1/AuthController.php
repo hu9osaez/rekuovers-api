@@ -5,7 +5,6 @@ use App\Models\User;
 use App\Transformers\AuthorizationTransformer;
 use Dingo\Api\Exception\ValidationHttpException;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends BaseController
 {
@@ -30,19 +29,16 @@ class AuthController extends BaseController
 
         $loginField = filter_var($request->input('login'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-        $request->merge([
-            $loginField => $request->input('login')
-        ]);
+        $user = User::where($loginField, '=', $request->input('login'))->first();
 
-        $credentials = $request->only($loginField, 'password');
-
-        if(!$token = app('auth')->attempt($credentials)) {
-            $this->response->errorUnauthorized();
+        if(!$user || !app('hash')->check($request->password, $user->password)) {
+            return $this->response->errorUnauthorized();
         }
+
+        $token = $user->generateToken();
 
         $authorization = new Authorization($token);
 
-        //return $this->response->array(compact('token'))->statusCode(201);
         return $this->response->item($authorization, new AuthorizationTransformer())->statusCode(201);
     }
 
@@ -63,23 +59,17 @@ class AuthController extends BaseController
         ]);
 
         if(!$user) {
-            $this->response->errorUnauthorized();
+            return $this->response->errorUnauthorized();
         }
 
-        $token = app('auth')->fromUser($user);
+        $token = $user->generateToken();
+
         $authorization = new Authorization($token);
 
-        //return $this->response->array(compact('token'))->statusCode(201);
         return $this->response->item($authorization, new AuthorizationTransformer())->statusCode(201);
     }
 
     public function showMe() {
-        //return app('auth')->user();
-        return app('auth')->payload();
-    }
-
-    public function token() {
-        $token = JWTAuth::getToken();
-        return $token;
+        return $this->response->array(app('auth')->user()->toArray());
     }
 }

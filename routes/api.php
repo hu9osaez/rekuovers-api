@@ -16,9 +16,7 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\v1'], function ($a
     $api->post('auth/login', 'AuthController@login');
     $api->post('auth/signup', 'AuthController@signup');
 
-    $api->get('auth/refresh_token', ['uses' => 'AuthController@token', 'middleware' => 'jwt.refresh']);
-
-    $api->get('me', ['uses' => 'AuthController@showMe', 'middleware' => 'api.auth']);
+    $api->get('me', ['uses' => 'AuthController@showMe', 'middleware' => 'auth']);
 
     $api->get('artists', 'ArtistController@index');
     $api->get('artists/{id}', 'ArtistController@show');

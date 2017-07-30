@@ -3,8 +3,12 @@
 use App\Models\Song;
 use App\Transformers\OriginalSongTransformer;
 use App\Transformers\SongTransformer;
-use Illuminate\Support\Facades\Cache;
 
+/**
+ * Song resource representation.
+ *
+ * @Resource("Songs", uri="/songs")
+ */
 class SongController extends BaseController
 {
     private $song;

@@ -32,6 +32,8 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\v1'], function ($a
     $api->get('songs/{id}/likes/exists', ['uses' => 'SongController@existsLike', 'middleware' => 'auth']);
     $api->post('songs/{id}/likes', ['uses' => 'SongController@storeLike', 'middleware' => 'auth']);
     //$api->get('songs/{id}/original-song', 'SongController@showOriginalSong');
+
+    $api->get('users/{username}', 'UserController@show');
 });
 
 // @TODO: Implement search in resources (Ex. $api->get('songs/search', 'SongController@search');)

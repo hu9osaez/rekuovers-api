@@ -28,7 +28,7 @@ class OriginalSongController extends BaseController
         $originalSong = $this->originalSong->find($id);
 
         if(!$originalSong) {
-            return $this->response->errorNotFound();
+            $this->response->errorNotFound();
         }
 
         return $this->response->item($originalSong, new OriginalSongTransformer());
@@ -38,7 +38,7 @@ class OriginalSongController extends BaseController
         $originalSong = $this->originalSong->find($id);
 
         if(!$originalSong) {
-            return $this->response->errorNotFound();
+            $this->response->errorNotFound();
         }
 
         return $this->response->collection($originalSong->artists, new ArtistTransformer());

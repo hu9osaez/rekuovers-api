@@ -29,7 +29,7 @@ class SongController extends BaseController
         $song = $this->song->find($id);
 
         if(!$song) {
-            return $this->response->errorNotFound();
+            $this->response->errorNotFound();
         }
 
         return $this->response->item($song, new SongTransformer());
@@ -39,7 +39,7 @@ class SongController extends BaseController
         $song = $this->song->find($id);
 
         if(!$song) {
-            return $this->response->errorNotFound();
+            $this->response->errorNotFound();
         }
 
         return $this->response->item($song->originalSong, new OriginalSongTransformer());
@@ -50,7 +50,7 @@ class SongController extends BaseController
         $song = $this->song->find($id);
 
         if(!$song) {
-            return $this->response->errorNotFound();
+            $this->response->errorNotFound();
         }
 
         if(Like::where([
@@ -62,7 +62,7 @@ class SongController extends BaseController
             ]);
         }
 
-        return $this->response->errorNotFound();
+        $this->response->errorNotFound();
     }
 
     public function storeLike($id) {

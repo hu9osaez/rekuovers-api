@@ -28,7 +28,7 @@ class ArtistController extends BaseController {
         $artist = $this->artist->find($id);
 
         if(!$artist) {
-            return $this->response->errorNotFound();
+            $this->response->errorNotFound();
         }
 
         return $this->response->item($artist, new ArtistTransformer());
@@ -38,7 +38,7 @@ class ArtistController extends BaseController {
         $artist = $this->artist->find($id);
 
         if(!$artist) {
-            return $this->response->errorNotFound();
+            $this->response->errorNotFound();
         }
 
         return $this->response->paginator($artist->originalSongs()->paginate(), new OriginalSongTransformer());

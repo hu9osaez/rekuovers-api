@@ -18,6 +18,13 @@ class UserTableSeeder extends Seeder
             return $value->getAttributes();
         }, $users->all());
 
+        User::create([
+            'name' => 'Rekuovers',
+            'username' => 'rekuovers',
+            'email' => 'hu9o.saez+admin@gmail.com',
+            'password' => app('hash')->make('hola123')
+        ]);
+
         User::insert($data);
     }
 }

@@ -16,11 +16,13 @@ class CreateTableSongs extends Migration
         Schema::create('songs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('original_song_id')->unsigned();
+            $table->integer('user_id')->unsigned()->default(1);
             $table->string('type', 5);
             $table->string('youtube_id');
             $table->timestamps();
 
             $table->foreign('original_song_id')->references('id')->on('original_songs');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

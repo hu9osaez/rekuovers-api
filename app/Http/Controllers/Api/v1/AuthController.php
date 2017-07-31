@@ -2,6 +2,7 @@
 
 use App\Http\Traits\AuthResponse;
 use App\Models\User;
+use App\Transformers\UserTransformer;
 use Dingo\Api\Exception\ValidationHttpException;
 use Illuminate\Http\Request;
 use Socialite;
@@ -105,6 +106,6 @@ class AuthController extends BaseController
     }
 
     public function showMe() {
-        return $this->response->array(app('auth')->user()->toArray());
+        return $this->response->item(app('auth')->user(), new UserTransformer());
     }
 }

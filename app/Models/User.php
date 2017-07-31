@@ -32,12 +32,18 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
         'api_token',
+        'facebook_id',
         'updated_at'
     ];
 
     /**
      * Relations
      */
+    public function songs()
+    {
+        return $this->hasMany(Song::class);
+    }
+
     public function likes()
     {
         return $this->hasMany(Like::class);

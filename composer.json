@@ -14,7 +14,8 @@
         "league/fractal": "^0.16.0",
         "vluzrmos/tinker": "^1.3",
         "tymon/jwt-auth": "1.0.0-beta.3",
-        "rap2hpoutre/laravel-log-viewer": "^0.10.4"
+        "rap2hpoutre/laravel-log-viewer": "^0.10.4",
+        "laravel/socialite": "^3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

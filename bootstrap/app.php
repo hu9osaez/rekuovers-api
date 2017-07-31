@@ -83,6 +83,7 @@ $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 
 $app->register(Dingo\Api\Provider\LumenServiceProvider::class);
+$app->register(Laravel\Socialite\SocialiteServiceProvider::class);
 
 $app['Dingo\Api\Transformer\Factory']->setAdapter(function () {
     $fractal = new League\Fractal\Manager;
@@ -90,6 +91,13 @@ $app['Dingo\Api\Transformer\Factory']->setAdapter(function () {
     $fractal->setSerializer($serializer);
     return new Dingo\Api\Transformer\Adapter\Fractal($fractal);
 });
+
+/*
+|--------------------------------------------------------------------------
+| Set The Application Facades
+|--------------------------------------------------------------------------
+*/
+class_alias(Laravel\Socialite\Facades\Socialite::class, 'Socialite');
 
 /*
 |--------------------------------------------------------------------------

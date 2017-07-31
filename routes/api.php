@@ -15,6 +15,7 @@ $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\v1'], function ($api) {
     $api->post('auth/login', 'AuthController@login');
     $api->post('auth/signup', 'AuthController@signup');
+    $api->get('auth/facebook', 'AuthController@authorizeFacebook');
 
     $api->get('me', ['uses' => 'AuthController@showMe', 'middleware' => 'auth']);
 

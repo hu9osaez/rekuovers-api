@@ -1,13 +1,15 @@
 <?php namespace App\Http\Controllers\Api\v1;
 
-use App\Models\Authorization;
+use App\Http\Traits\AuthResponse;
 use App\Models\User;
-use App\Transformers\AuthorizationTransformer;
 use Dingo\Api\Exception\ValidationHttpException;
 use Illuminate\Http\Request;
+use Socialite;
 
 class AuthController extends BaseController
 {
+    use AuthResponse;
+
     private $loginRules = [
         'login' => 'required',
         'password' => 'required'
@@ -21,52 +23,85 @@ class AuthController extends BaseController
     ];
 
     public function login(Request $request) {
-        $validator = app('validator')->make($request->only('login', 'password'), $this->loginRules);
+        $validator = app('validator')->make($request->all(), $this->loginRules);
 
         if ($validator->fails()) {
             throw new ValidationHttpException($validator->errors());
         }
 
-        $loginField = filter_var($request->input('login'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        $loginField = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-        $user = User::where($loginField, '=', $request->input('login'))->first();
+        $user = User::where($loginField, '=', $request->login)->first();
 
         if(!$user || !app('hash')->check($request->password, $user->password)) {
-            return $this->response->errorUnauthorized();
+            $this->response->errorUnauthorized();
         }
 
-        $token = $user->generateToken();
-
-        $authorization = new Authorization($token);
-
-        return $this->response->item($authorization, new AuthorizationTransformer())->statusCode(201);
+        return $this->token($user->generateToken());
     }
 
     public function signup(Request $request) {
-        $credentials = $request->only('name', 'username', 'email', 'password');
-
-        $validator = app('validator')->make($credentials, $this->signupRules);
+        $validator = app('validator')->make($request->all(), $this->signupRules);
 
         if ($validator->fails()) {
             throw new ValidationHttpException($validator->errors());
         }
 
         $user = User::create([
-            'name' => $credentials['name'],
-            'username' => $credentials['username'],
-            'email' => $credentials['email'],
-            'password' => app('hash')->make($credentials['password'])
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => app('hash')->make($request->password)
         ]);
 
         if(!$user) {
-            return $this->response->errorUnauthorized();
+            $this->response->errorUnauthorized();
         }
 
-        $token = $user->generateToken();
+        return $this->token($user->generateToken());
+    }
 
-        $authorization = new Authorization($token);
+    public function authorizeFacebook(Request $request) {
+        $validator = app('validator')->make($request->all(), ['access_token' => 'required']);
 
-        return $this->response->item($authorization, new AuthorizationTransformer())->statusCode(201);
+        if ($validator->fails()) {
+            throw new ValidationHttpException($validator->errors());
+        }
+
+        $facebookUser = Socialite::driver('facebook')->userFromToken($request->access_token);
+
+        // Si <facebook_id> existe, retornar el usuario encontrado
+        if($user = User::where('facebook_id', $facebookUser->id)->first()) {
+            return $this->token($user->generateToken());
+        }
+        else {
+            // Si <email> NO existe ===> crear usuario, asociar datos y devolver <api_token>
+            if(!User::where('email', $facebookUser->email)->first())
+            {
+                $newUser = User::create([
+                    'name' => $facebookUser->name,
+                    'username' => str_slug($facebookUser->name),
+                    'email' => $facebookUser->email,
+                    'facebook_id' => $facebookUser->id
+                ]);
+
+                return $this->token($newUser->generateToken());
+            }
+            // Usuario(email) existe y NO tiene facebook_id ===> asociar datos y devolver token
+            elseif($user = User::where('email', $facebookUser->email)->whereNull('facebook_id')->first())
+            {
+                $user->facebook_id = $facebookUser->id;
+                $user->save();
+
+                return $this->token($user->generateToken());
+            }
+            // Usuario(email) existe y SI tiene facebook_id ===> devolver token
+            else
+            {
+                $user = User::where('email', $facebookUser->email)->where('facebook_id', $facebookUser->id)->first();
+                return $this->token($user->generateToken());
+            }
+        }
     }
 
     public function showMe() {

@@ -19,7 +19,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'name',
         'username',
         'email',
-        'password'
+        'password',
+        'api_token',
+        'facebook_id'
     ];
 
     /**
@@ -34,7 +36,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     ];
 
     /**
-     * RELATIONS
+     * Relations
      */
     public function likes()
     {
@@ -42,7 +44,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     }
 
     /**
-     * MUTATORS
+     * Mutators
      */
     public function setUsernameAttribute($username)
     {
@@ -64,6 +66,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         $this->attributes['email'] = $email;
     }
 
+    /**
+     * Others methods
+     */
     public function generateToken()
     {
         $this->api_token = str_random(60);

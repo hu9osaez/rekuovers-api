@@ -16,22 +16,18 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\v1'], function ($a
     $api->post('auth/login', 'AuthController@login');
     $api->post('auth/signup', 'AuthController@signup');
     $api->get('auth/facebook', 'AuthController@authorizeFacebook');
-
-    $api->get('me', ['uses' => 'AuthController@showMe', 'middleware' => 'auth']);
+    $api->get('auth/me', ['uses' => 'AuthController@showMe', 'middleware' => 'auth']);
 
     $api->get('artists', 'ArtistController@index');
     $api->get('artists/{id}', 'ArtistController@show');
-    //$api->get('artists/{id}/original-songs', 'ArtistController@showOriginalSongs');
 
     $api->get('original-songs', 'OriginalSongController@index');
     $api->get('original-songs/{id}', 'OriginalSongController@show');
-    //$api->get('original-songs/{id}/artists', 'OriginalSongController@showArtists');
 
     $api->get('songs', 'SongController@index');
     $api->get('songs/{id}', 'SongController@show');
     $api->get('songs/{id}/likes/exists', ['uses' => 'SongController@existsLike', 'middleware' => 'auth']);
     $api->post('songs/{id}/likes', ['uses' => 'SongController@storeLike', 'middleware' => 'auth']);
-    //$api->get('songs/{id}/original-song', 'SongController@showOriginalSong');
 
     $api->get('users/{username}', 'UserController@show');
 });

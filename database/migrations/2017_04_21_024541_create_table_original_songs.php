@@ -16,6 +16,7 @@ class CreateTableOriginalSongs extends Migration
         Schema::create('original_songs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
+            $table->timestamps();
         });
     }
 

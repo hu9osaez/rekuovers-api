@@ -4,13 +4,35 @@ use Illuminate\Database\Eloquent\Model;
 
 class OriginalSong extends Model
 {
-
-    protected $table = 'original_songs';
-
-    public $timestamps = false;
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'name' => 'string'
+    ];
 
     /**
-     * Get the artist(s) that owns the original song.
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name'
+    ];
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'original_songs';
+
+    /**
+     * Return the artist(s) that owns the original song.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function artists()
     {

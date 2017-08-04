@@ -1,5 +1,7 @@
 <?php namespace App\Models;
 
+use Carbon\Carbon;
+
 class Authorization
 {
     protected $token;
@@ -14,11 +16,15 @@ class Authorization
         $this->token = $token;
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
         return [
             'id' => hash('md5', $this->token),
-            'token' => $this->token
+            'token' => $this->token,
+            'generated_at' => Carbon::now()->toDateTimeString()
         ];
     }
 }

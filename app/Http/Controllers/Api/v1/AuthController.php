@@ -1,10 +1,11 @@
 <?php namespace App\Http\Controllers\Api\v1;
 
+use App\Events\UserLoggedIn;
 use App\Http\Traits\AuthResponse;
 use App\Models\User;
 use App\Transformers\UserTransformer;
 use Dingo\Api\Exception\ValidationHttpException;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; // @TODO: Change Request to Request from Dingo
 use Socialite;
 
 class AuthController extends BaseController
@@ -38,6 +39,8 @@ class AuthController extends BaseController
             $this->response->errorUnauthorized();
         }
 
+        event(new UserLoggedIn($user->id));
+
         return $this->token($user->generateToken());
     }
 
@@ -52,12 +55,14 @@ class AuthController extends BaseController
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
-            'password' => app('hash')->make($request->password)
+            'password' => $request->password
         ]);
 
         if(!$user) {
             $this->response->errorUnauthorized();
         }
+
+        event(new UserLoggedIn($user->id));
 
         return $this->token($user->generateToken());
     }
@@ -73,6 +78,8 @@ class AuthController extends BaseController
 
         // Si <facebook_id> existe, retornar el usuario encontrado
         if($user = User::where('facebook_id', $facebookUser->id)->first()) {
+            event(new UserLoggedIn($user->id));
+
             return $this->token($user->generateToken());
         }
         else {
@@ -86,6 +93,8 @@ class AuthController extends BaseController
                     'facebook_id' => $facebookUser->id
                 ]);
 
+                event(new UserLoggedIn($newUser->id));
+
                 return $this->token($newUser->generateToken());
             }
             // Usuario(email) existe y NO tiene facebook_id ===> asociar datos y devolver token
@@ -94,12 +103,17 @@ class AuthController extends BaseController
                 $user->facebook_id = $facebookUser->id;
                 $user->save();
 
+                event(new UserLoggedIn($user->id));
+
                 return $this->token($user->generateToken());
             }
             // Usuario(email) existe y SI tiene facebook_id ===> devolver token
             else
             {
                 $user = User::where('email', $facebookUser->email)->where('facebook_id', $facebookUser->id)->first();
+
+                event(new UserLoggedIn($user->id));
+
                 return $this->token($user->generateToken());
             }
         }

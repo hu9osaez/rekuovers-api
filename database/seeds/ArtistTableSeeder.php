@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Artist;
 
 class ArtistTableSeeder extends Seeder
 {
@@ -11,13 +12,10 @@ class ArtistTableSeeder extends Seeder
      */
     public function run()
     {
-        //DB::table('artists')->truncate();
-        DB::table('artists')->insert([
-            ['name' => 'The Weeknd'],
-            ['name' => 'Daft Punk'],
-            ['name' => 'Charlie Puth'],
-            ['name' => 'Selena Gomez'],
-            ['name' => 'Drake']
-        ]);
+        Artist::create(['name' => 'The Weeknd']);
+        Artist::create(['name' => 'Daft Punk']);
+        Artist::create(['name' => 'Charlie Puth']);
+        Artist::create(['name' => 'Selena Gomez']);
+        Artist::create(['name' => 'Drake']);
     }
 }

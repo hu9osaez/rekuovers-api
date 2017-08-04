@@ -2,18 +2,20 @@
 
 use Illuminate\Auth\Authenticatable;
 use Laravel\Lumen\Auth\Authorizable;
+use OwenIt\Auditing\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class User extends Model implements AuthenticatableContract, AuthorizableContract
+class User extends Model implements AuthenticatableContract, AuthorizableContract, AuditableContract
 {
-    use Authenticatable, Authorizable;
+    use Authenticatable, Authorizable, Auditable;
 
     /**
      * The attributes that should be casted to native types.
      *
-     * @var array[]
+     * @var array
      */
     protected $casts = [
         'name'        => 'string',
@@ -32,9 +34,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'name',
         'username',
         'email',
-        'password',
-        'api_token',
-        'facebook_id'
+        'password'
     ];
 
     /**
@@ -50,13 +50,27 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     ];
 
     /**
-     * Relations
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'users';
+
+    /**
+     * Return the song that has published the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function songs()
     {
         return $this->hasMany(Song::class);
     }
 
+    /**
+     * Return the likes that the user gave to songs
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function likes()
     {
         return $this->hasMany(Like::class);
@@ -65,9 +79,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     /**
      * Mutators
      */
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = app('hash')->make($password);
+    }
+
     public function setUsernameAttribute($username)
     {
-        return $this->attributes['username'] = strtolower(trim($username));
+        $this->attributes['username'] = strtolower(trim($username));
     }
 
     public function setEmailAttribute($email)

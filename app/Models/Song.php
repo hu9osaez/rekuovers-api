@@ -11,7 +11,7 @@ class Song extends Model
      */
     protected $casts = [
         'original_song_id' => 'integer',
-        'user_id' => 'integer',
+        'publisher_id' => 'integer',
         'type' => 'string',
         'youtube_id' => 'string'
     ];
@@ -23,7 +23,7 @@ class Song extends Model
      */
     protected $fillable = [
         'original_song_id',
-        'user_id',
+        'publisher_id',
         'type',
         'youtube_id'
     ];
@@ -52,7 +52,7 @@ class Song extends Model
      */
     public function publisher()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'publisher_id', 'id');
     }
 
     /**

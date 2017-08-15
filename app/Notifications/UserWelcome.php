@@ -2,10 +2,10 @@
 
 namespace App\Notifications;
 
+use App\Mail\WelcomeMail as Mailable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 
 class UserWelcome extends Notification implements ShouldQueue
 {
@@ -23,16 +23,15 @@ class UserWelcome extends Notification implements ShouldQueue
     }
 
     /**
-     * Get the mail representation of the notification.
+     *
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return \App\Mail\WelcomeMail
      */
     public function toMail($notifiable)
     {
-         return (new MailMessage)
-             ->from('support@rekuovers.com')
-             ->subject('Welcome to Rekuovers')
-             ->view('emails.user.welcome', ['user' => $notifiable]);
+         return (new Mailable($notifiable))
+             ->from('support@rekuovers.com', 'Rekuovers')
+             ->subject('Welcome to Rekuovers');
     }
 }

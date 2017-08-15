@@ -18,6 +18,6 @@ class SignUpListener
         $user->activation_code = str_random(40);
         $user->save();
 
-        $user->notify(new UserWelcome());
+        //$user->notify(new UserWelcome());
     }
 }

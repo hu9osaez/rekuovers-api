@@ -51,7 +51,6 @@
 
     </style>
     <!--<![endif]--><style type="text/css">
-        @import url('https://afeld.github.io/emoji-css/emoji.css');
         @media all and (max-width: 360px) {
             .text-hero {
                 line-height: 70px!important;
@@ -122,10 +121,10 @@
                         <tr>
                             <td style="vertical-align:top;width:600px;">
                     <![endif]--><div class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:10px 25px;" align="left"><div style="cursor:auto;color:#555;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:20px;font-weight:bold;line-height:22px;text-align:left;">Hi, {{ $user->name }}!</div></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:10px 25px;" align="left"><div style="cursor:auto;color:#555;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;">You're part of the community Rekuovers, now also you can:
-                                        <ul style="list-style: none; padding-left: 15px">
-                                            <li><i class="em em-mag_right"></i> Find new covers & remixes</li>
-                                            <li><i class="em em-blue_heart"></i> Give like songs that you love</li>
-                                            <li><i class="em em-star2"></i> Post your own cover versions (*)</li>
+                                        <ul>
+                                            <li>Find new covers & remixes</li>
+                                            <li>Give like songs that you love</li>
+                                            <li>Post your own cover versions (*)</li>
                                         </ul></div></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:10px 25px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:separate;" align="center" border="0"><tbody><tr><td style="border:none;border-radius:3px;color:#ffffff;cursor:auto;padding:10px 25px;" align="center" valign="middle" bgcolor="#7D7255"><a href="#" style="text-decoration:none;background:#7D7255;color:#ffffff;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:18px;font-weight:bold;line-height:120%;text-transform:none;margin:0px;" target="_blank">CONFIRM MY EMAIL (*)</a></td></tr></tbody></table></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:10px 25px;"><p style="font-size:1px;margin:0px auto;border-top:1px dashed lightgrey;width:100%;"></p><!--[if mso | IE]><table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" style="font-size:1px;margin:0px auto;border-top:1px dashed lightgrey;width:100%;" width="600"><tr><td style="height:0;line-height:0;"> </td></tr></table><![endif]--></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:10px 25px;" align="left"><div style="cursor:auto;color:#555;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;">Regards, <br>
                                         Team Rekuovers</div></td></tr></tbody></table></div><!--[if mso | IE]>
                     </td></tr></table>

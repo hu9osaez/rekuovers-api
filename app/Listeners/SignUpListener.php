@@ -2,7 +2,7 @@
 
 use App\Events\UserSignedUp;
 use App\Models\User;
-use App\Notifications\UserActivationEmail;
+use App\Notifications\UserWelcome;
 
 class SignUpListener
 {
@@ -18,6 +18,6 @@ class SignUpListener
         $user->activation_code = str_random(40);
         $user->save();
 
-        $user->notify(new UserActivationEmail());
+        $user->notify(new UserWelcome());
     }
 }

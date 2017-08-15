@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f4b344e80b256848c613f028d80cc07d",
+    "content-hash": "6fae66b17e3367d3fcc958145cc99a8e",
     "packages": [
         {
             "name": "dingo/api",
@@ -1996,7 +1996,7 @@
                 "notification",
                 "wrapper"
             ],
-            "time": "2017-07-10 13:51:08"
+            "time": "2017-07-10T13:51:08+00:00"
         },
         {
             "name": "laravel/lumen-framework",
@@ -2143,6 +2143,69 @@
                 "oauth"
             ],
             "time": "2017-07-22T14:44:37+00:00"
+        },
+        {
+            "name": "laravel/tinker",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/tinker.git",
+                "reference": "203978fd67f118902acff95925847e70b72e3daf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/tinker/zipball/203978fd67f118902acff95925847e70b72e3daf",
+                "reference": "203978fd67f118902acff95925847e70b72e3daf",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "~5.1",
+                "illuminate/contracts": "~5.1",
+                "illuminate/support": "~5.1",
+                "php": ">=5.5.9",
+                "psy/psysh": "0.7.*|0.8.*",
+                "symfony/var-dumper": "~3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0|~5.0"
+            },
+            "suggest": {
+                "illuminate/database": "The Illuminate Database package (~5.1)."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Tinker\\TinkerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Tinker\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Powerful REPL for the Laravel framework.",
+            "keywords": [
+                "REPL",
+                "Tinker",
+                "laravel",
+                "psysh"
+            ],
+            "time": "2017-07-13T13:11:05+00:00"
         },
         {
             "name": "laravelista/lumen-vendor-publish",
@@ -2854,7 +2917,7 @@
                 "lumencors",
                 "preflight"
             ],
-            "time": "2017-06-24 03:53:36"
+            "time": "2017-06-24T03:53:36+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -4428,58 +4491,6 @@
                 "environment"
             ],
             "time": "2016-09-01T10:05:43+00:00"
-        },
-        {
-            "name": "vluzrmos/tinker",
-            "version": "v1.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/vluzrmos/lumen-tinker.git",
-                "reference": "17789f4ff3b1c31097a5d29228c9ec3c32948b1c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/vluzrmos/lumen-tinker/zipball/17789f4ff3b1c31097a5d29228c9ec3c32948b1c",
-                "reference": "17789f4ff3b1c31097a5d29228c9ec3c32948b1c",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/lumen-framework": "~5.3",
-                "psy/psysh": "~0.7.0|~0.8.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.0",
-                "fzaninotto/faker": "~1.4",
-                "phpunit/phpunit": "~5.0"
-            },
-            "type": "package",
-            "autoload": {
-                "psr-4": {
-                    "Vluzrmos\\Tinker\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Vagner do Carmo",
-                    "email": "vluzrmos@gmail.com"
-                },
-                {
-                    "name": "Szabolcs (Szasza) Palmer",
-                    "email": "szasza@szasza.info"
-                }
-            ],
-            "description": "An Interactive Shell to Lumen Framework.",
-            "keywords": [
-                "Tinker",
-                "laravel",
-                "lumen",
-                "shell"
-            ],
-            "time": "2017-01-03T11:49:24+00:00"
         },
         {
             "name": "webmozart/assert",

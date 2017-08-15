@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
     {
         if ($this->app->environment() == 'local') {
             $this->app->register('Wn\Generators\CommandsServiceProvider');
-            $this->app->register('Vluzrmos\Tinker\TinkerServiceProvider');
+            $this->app->register('Laravel\Tinker\TinkerServiceProvider');
             $this->app->register('Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider');
         }
     }

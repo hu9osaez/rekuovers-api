@@ -16,7 +16,7 @@ class CreateTableArtistOriginalSong extends Migration
         Schema::create('artist_originalsong', function (Blueprint $table) {
             $table->bigInteger('artist_id')->unsigned()->index();
             $table->foreign('artist_id')->references('id')->on('artists')->onDelete('cascade');
-            $table->integer('original_song_id')->unsigned()->index();
+            $table->bigInteger('original_song_id')->unsigned()->index();
             $table->foreign('original_song_id')->references('id')->on('original_songs')->onDelete('cascade');
         });
     }

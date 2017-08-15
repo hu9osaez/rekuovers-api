@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class UserActivationEmail extends Notification implements ShouldQueue
+class UserWelcome extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -30,10 +30,9 @@ class UserActivationEmail extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-            ->subject('Email verification')
-            ->line('Email verification')
-            ->line('To validate your email click on the button below')
-            ->action('Email verification', url('confirm/' . $notifiable->activation_code));
+         return (new MailMessage)
+             ->from('support@rekuovers.com')
+             ->subject('Welcome to Rekuovers')
+             ->view('emails.user.welcome', ['user' => $notifiable]);
     }
 }

@@ -2,7 +2,7 @@
 
 use App\Events\UserSignedIn;
 use App\Events\UserSignedUp;
-use App\Http\Traits\AuthResponse;
+use App\Http\Controllers\Api\v1\Traits\AuthResponse;
 use App\Models\User;
 use App\Transformers\UserTransformer;
 use Dingo\Api\Exception\ValidationHttpException;

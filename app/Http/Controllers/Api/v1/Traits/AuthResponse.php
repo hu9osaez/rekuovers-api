@@ -1,4 +1,4 @@
-<?php namespace App\Http\Traits;
+<?php namespace App\Http\Controllers\Api\v1\Traits;
 
 use App\Models\Authorization;
 use App\Transformers\AuthorizationTransformer;

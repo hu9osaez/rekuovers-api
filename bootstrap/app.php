@@ -86,6 +86,7 @@ $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Dingo\Api\Provider\LumenServiceProvider::class);
 $app->register(Laravel\Socialite\SocialiteServiceProvider::class);
 $app->register(OwenIt\Auditing\AuditingServiceProvider::class);
+$app->register(LumenNotification\LumenNotificationServiceProvider::class);
 
 $app['Dingo\Api\Transformer\Factory']->setAdapter(function () {
     $fractal = new League\Fractal\Manager;

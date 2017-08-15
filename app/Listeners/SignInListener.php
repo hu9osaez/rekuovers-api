@@ -1,23 +1,23 @@
 <?php namespace App\Listeners;
 
-use App\Events\UserLoggedIn;
+use App\Events\UserSignedIn;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Request;
 
-class LoginListener
+class SignInListener
 {
     /**
      * Handle the event.
      *
-     * @param  UserLoggedIn  $event
+     * @param  UserSignedIn  $event
      * @return void
      */
-    public function handle(UserLoggedIn $event)
+    public function handle(UserSignedIn $event)
     {
         $user = User::find($event->user_id);
-        $user->last_login = Carbon::now();
-        $user->last_login_ip = Request::ip();
+        $user->last_signin = Carbon::now();
+        $user->last_signin_ip = Request::ip();
         $user->save();
     }
 }

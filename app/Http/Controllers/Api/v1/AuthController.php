@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Api\v1;
 
-use App\Events\UserLoggedIn;
+use App\Events\UserSignedIn;
+use App\Events\UserSignedUp;
 use App\Http\Traits\AuthResponse;
 use App\Models\User;
 use App\Transformers\UserTransformer;
@@ -12,7 +13,7 @@ class AuthController extends BaseController
 {
     use AuthResponse;
 
-    private $loginRules = [
+    private $signinRules = [
         'login' => 'required',
         'password' => 'required'
     ];
@@ -24,8 +25,8 @@ class AuthController extends BaseController
         'password' => 'required|min:6'
     ];
 
-    public function login(Request $request) {
-        $validator = app('validator')->make($request->all(), $this->loginRules);
+    public function signin(Request $request) {
+        $validator = app('validator')->make($request->all(), $this->signinRules);
 
         if ($validator->fails()) {
             throw new ValidationHttpException($validator->errors());
@@ -39,7 +40,7 @@ class AuthController extends BaseController
             $this->response->errorUnauthorized();
         }
 
-        event(new UserLoggedIn($user->id));
+        event(new UserSignedIn($user->id));
 
         return $this->token($user->generateToken());
     }
@@ -62,7 +63,8 @@ class AuthController extends BaseController
             $this->response->errorUnauthorized();
         }
 
-        event(new UserLoggedIn($user->id));
+        event(new UserSignedUp($user->id));
+        event(new UserSignedIn($user->id));
 
         return $this->token($user->generateToken());
     }
@@ -78,7 +80,7 @@ class AuthController extends BaseController
 
         // Si <facebook_id> existe, retornar el usuario encontrado
         if($user = User::where('facebook_id', $facebookUser->id)->first()) {
-            event(new UserLoggedIn($user->id));
+            event(new UserSignedIn($user->id));
 
             return $this->token($user->generateToken());
         }
@@ -93,7 +95,8 @@ class AuthController extends BaseController
                     'facebook_id' => $facebookUser->id
                 ]);
 
-                event(new UserLoggedIn($newUser->id));
+                event(new UserSignedUp($newUser->id));
+                event(new UserSignedIn($newUser->id));
 
                 return $this->token($newUser->generateToken());
             }
@@ -103,7 +106,7 @@ class AuthController extends BaseController
                 $user->facebook_id = $facebookUser->id;
                 $user->save();
 
-                event(new UserLoggedIn($user->id));
+                event(new UserSignedIn($user->id));
 
                 return $this->token($user->generateToken());
             }
@@ -112,7 +115,7 @@ class AuthController extends BaseController
             {
                 $user = User::where('email', $facebookUser->email)->where('facebook_id', $facebookUser->id)->first();
 
-                event(new UserLoggedIn($user->id));
+                event(new UserSignedIn($user->id));
 
                 return $this->token($user->generateToken());
             }

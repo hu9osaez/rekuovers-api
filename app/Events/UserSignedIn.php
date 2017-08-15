@@ -1,9 +1,9 @@
 <?php namespace App\Events;
 
-class UserLoggedIn extends Event
+class UserSignedIn extends Event
 {
     /**
-     * Identifier of the logged in user
+     * Identifier of the signed in user
      *
      * @var int
      */

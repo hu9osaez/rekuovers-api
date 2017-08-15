@@ -20,10 +20,11 @@ class CreateTableUsers extends Migration
             $table->string('email')->unique();
             $table->string('password', 60)->nullable();
             $table->boolean('active')->default(false);
+            $table->string('activation_code')->nullable();
             $table->string('api_token', 60)->unique()->nullable();
             $table->string('facebook_id')->nullable();
-            $table->timestamp('last_login')->nullable();
-            $table->ipAddress('last_login_ip')->nullable();
+            $table->timestamp('last_signin')->nullable();
+            $table->ipAddress('last_signin_ip')->nullable();
             $table->timestamps();
         });
     }

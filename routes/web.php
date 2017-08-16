@@ -11,8 +11,8 @@
 |
 */
 
-$app->get('/', function () use ($app) {
-    return $app->version();
+$app->get('/', function () {
+    return response()->json(['status' => 'Soon! Yay']);
 });
 
 if ($app->environment() == 'local')

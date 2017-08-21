@@ -2,8 +2,9 @@
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
-class UserTableSeeder extends Seeder
+class UsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -22,7 +23,7 @@ class UserTableSeeder extends Seeder
             'name' => 'Rekuovers',
             'username' => 'rekuovers',
             'email' => 'hu9o.saez+admin@gmail.com',
-            'password' => app('hash')->make('hola123')
+            'password' => Hash::make('hola123')
         ]);
 
         User::insert($data);

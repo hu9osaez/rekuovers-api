@@ -1,17 +1,13 @@
 <?php namespace App\Models;
 
-use Illuminate\Auth\Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Lumen\Auth\Authorizable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use OwenIt\Auditing\Auditable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class User extends Model implements AuthenticatableContract, AuthorizableContract, AuditableContract
+class User extends Authenticatable implements AuditableContract
 {
-    use Authenticatable, Authorizable, Auditable, Notifiable;
+    use Auditable, Notifiable;
 
     /**
      * The attributes that should be casted to native types.

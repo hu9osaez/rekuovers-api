@@ -1,9 +1,16 @@
 <?php namespace App\Http\Controllers\Api\v1;
 
-use Dingo\Api\Routing\Helpers;
+use EllipseSynergie\ApiResponse\Contracts\Response;
 use Illuminate\Routing\Controller;
 
-class BaseController extends Controller
+abstract class BaseController extends Controller
 {
-    use Helpers;
+    /**
+     * BaseController constructor.
+     * @param Response $response
+     */
+    public function __construct(Response $response)
+    {
+        $this->response = $response;
+    }
 }

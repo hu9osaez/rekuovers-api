@@ -1,13 +1,9 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use OwenIt\Auditing\Auditable;
-use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class Artist extends Model implements AuditableContract
+class Artist extends Model
 {
-    use Auditable;
-
     /**
      * The attributes that should be casted to native types.
      *

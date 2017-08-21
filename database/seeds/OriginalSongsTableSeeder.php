@@ -2,6 +2,7 @@
 
 use App\Models\OriginalSong;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class OriginalSongsTableSeeder extends Seeder
 {
@@ -12,7 +13,6 @@ class OriginalSongsTableSeeder extends Seeder
      */
     public function run()
     {
-        //DB::table('original_songs')->truncate();
         DB::table('original_songs')->insert([
             ['title' => 'I Feel It Coming'],
             ['title' => 'We don\'t talk anymore'],

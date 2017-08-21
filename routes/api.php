@@ -1,18 +1,30 @@
 <?php
 
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
-| Application Routes
+| API Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register all of the routes for an application.
-| It is a breeze. Simply tell Lumen the URIs it should respond to
-| and give it the Closure to call when that URI is requested.
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
 |
- */
-$api = app('Dingo\Api\Routing\Router');
+*/
 
-$api->version('v1', ['namespace' => 'App\Http\Controllers\Api\v1'], function ($api) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+Route::group(['namespace' => 'Api\v1', 'domain' => 'api.rekuovers.dev'], function () {
+    Route::get('/', function (Request $request) {
+        return response()->json(['api' => 'OK']);
+    });
+});
+
+/*
+    $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\v1'], function ($api) {
     $api->post('auth/signin', 'AuthController@signin');
     $api->post('auth/signup', 'AuthController@signup');
     $api->get('auth/facebook', 'AuthController@authorizeFacebook');
@@ -30,6 +42,4 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\v1'], function ($a
     $api->post('songs/{id}/likes', ['uses' => 'SongController@storeLike', 'middleware' => 'auth']);
 
     $api->get('users/{username}', 'UserController@show');
-});
-
-// @TODO: Implement search in resources (Ex. $api->get('songs/search', 'SongController@search');)
+ */

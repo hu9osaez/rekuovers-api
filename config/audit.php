@@ -40,7 +40,7 @@ return [
         'foreign_key' => 'user_id',
         'model'       => App\Models\User::class,
         'resolver'    => function () {
-            return app('auth')->check() ? app('auth')->user()->getAuthIdentifier() : null;
+            return Auth::check() ? Auth::user()->getAuthIdentifier() : null;
         },
     ],
 

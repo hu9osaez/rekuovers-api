@@ -13,19 +13,17 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+$api = app('Dingo\Api\Routing\Router');
 
-Route::group(['namespace' => 'Api\v1', 'domain' => 'api.rekuovers.dev'], function () {
-    Route::get('/', function (Request $request) {
-        return response()->json(['api' => 'OK']);
-    });
+$api->version('v1', ['namespace' => 'App\Http\Controllers\Api\v1', 'as' => 'api::'], function ($api) {
+    $api->post('auth/signin', ['uses' => 'AuthController@signin']);
+
+    $api->get('artists', 'ArtistController@index')->name('artists');
 });
 
 /*
     $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\v1'], function ($api) {
-    $api->post('auth/signin', 'AuthController@signin');
+
     $api->post('auth/signup', 'AuthController@signup');
     $api->get('auth/facebook', 'AuthController@authorizeFacebook');
     $api->get('auth/me', ['uses' => 'AuthController@showMe', 'middleware' => 'auth']);

@@ -3,6 +3,7 @@
 use App\Events\UserSignedIn;
 use App\Events\UserSignedUp;
 use App\Http\Controllers\Api\v1\Traits\AuthResponse;
+use App\Http\Controllers\Api\v1\Requests\SignInRequest;
 use App\Models\User;
 use App\Transformers\UserTransformer;
 use Dingo\Api\Exception\ValidationHttpException;
@@ -25,24 +26,16 @@ class AuthController extends BaseController
         'password' => 'required|min:6'
     ];
 
-    public function signin(Request $request) {
-        $validator = app('validator')->make($request->all(), $this->signinRules);
-
-        if ($validator->fails()) {
-            throw new ValidationHttpException($validator->errors());
-        }
-
+    public function signin(SignInRequest $request) {
         $loginField = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-        $user = User::where($loginField, '=', $request->login)->first();
+        /*if(!$user || !app('hash')->check($request->password, $user->password)) {
 
-        if(!$user || !app('hash')->check($request->password, $user->password)) {
-            $this->response->errorUnauthorized();
-        }
+        }*/
 
-        event(new UserSignedIn($user->id));
+        //event(new UserSignedIn($user->id));
 
-        return $this->token($user->generateToken());
+        //return $this->token($user->generateToken());
     }
 
     public function signup(Request $request) {

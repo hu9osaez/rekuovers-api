@@ -167,7 +167,7 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
-        EllipseSynergie\ApiResponse\Laravel\ResponseServiceProvider::class,
+        Dingo\Api\Provider\LaravelServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         OwenIt\Auditing\AuditingServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,

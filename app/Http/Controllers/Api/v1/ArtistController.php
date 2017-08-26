@@ -3,7 +3,6 @@
 use App\Models\Artist;
 use App\Transformers\ArtistTransformer;
 use App\Transformers\OriginalSongTransformer;
-use EllipseSynergie\ApiResponse\Contracts\Response;
 
 /**
  * Artist resource representation.

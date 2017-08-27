@@ -4,16 +4,17 @@ use Carbon\Carbon;
 
 class Authorization
 {
+    /**
+     * @var string
+     */
     protected $token;
 
-    public function __construct($token = null)
-    {
-        $this->token = $token;
-    }
+    protected $refreshToken;
 
-    public function setToken($token)
+    public function __construct($tokens = null)
     {
-        $this->token = $token;
+        $this->token = $tokens['api_token'];
+        $this->refreshToken = $tokens['refresh_token'];
     }
 
     /**
@@ -24,7 +25,7 @@ class Authorization
         return [
             'id' => hash('md5', $this->token),
             'token' => $this->token,
-            'generated_at' => Carbon::now()->toDateTimeString()
+            'refresh_token' => $this->refreshToken
         ];
     }
 }

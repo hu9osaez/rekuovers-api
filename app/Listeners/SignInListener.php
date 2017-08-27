@@ -3,7 +3,6 @@
 use App\Events\UserSignedIn;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Request;
 
 class SignInListener
 {
@@ -15,9 +14,9 @@ class SignInListener
      */
     public function handle(UserSignedIn $event)
     {
-        $user = User::find($event->user_id);
+        $user = User::find($event->userId);
         $user->last_signin = Carbon::now();
-        $user->last_signin_ip = ip_client();
+        $user->last_signin_ip = request()->ip();
         $user->save();
     }
 }

@@ -7,16 +7,16 @@ class UserSignedIn extends Event
      *
      * @var int
      */
-    public $user_id;
+    public $userId;
 
     /**
      * Create a new event instance.
      *
-     * @param int $user_id the primary key of the user who was just authenticated.
+     * @param int $userId the primary key of the user who was just authenticated.
      *
      */
-    public function __construct($user_id)
+    public function __construct($userId)
     {
-        $this->user_id = $user_id;
+        $this->userId = $userId;
     }
 }

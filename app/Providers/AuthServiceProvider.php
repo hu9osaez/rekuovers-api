@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Paulvl\JWTGuard\JWT\JWTManager;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +25,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        $this->app->bind('jwt-manager', function()
+        {
+            return new JWTManager(
+                config('jwt.secret_key'),
+                config('jwt.jwt_token_duration'),
+                config('jwt.enable_refresh_token'),
+                config('jwt.refresh_token_duration')
+            );
+        });
     }
 }

@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Rekuovers',
             'username' => 'rekuovers',
             'email' => 'hu9o.saez+admin@gmail.com',
-            'password' => Hash::make('hola123')
+            'password' => 'hola123'
         ]);
 
         User::insert($data);

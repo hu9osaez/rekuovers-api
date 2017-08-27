@@ -168,6 +168,7 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Dingo\Api\Provider\LaravelServiceProvider::class,
+        Paulvl\JWTGuard\Auth\AuthServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         OwenIt\Auditing\AuditingServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,

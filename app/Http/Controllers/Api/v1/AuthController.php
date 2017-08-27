@@ -14,11 +14,6 @@ class AuthController extends BaseController
 {
     use AuthResponse;
 
-    private $signinRules = [
-        'login' => 'required',
-        'password' => 'required'
-    ];
-
     private $signupRules = [
         'name' => 'required',
         'username' => 'required|unique:users,username',
@@ -29,13 +24,23 @@ class AuthController extends BaseController
     public function signin(SignInRequest $request) {
         $loginField = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-        /*if(!$user || !app('hash')->check($request->password, $user->password)) {
+        $credentials = [
+            $loginField => $request->login,
+            'password' => $request->password
+        ];
 
-        }*/
+        $tokens = auth('jwt')->attempt($credentials);
 
-        //event(new UserSignedIn($user->id));
+        if(!$tokens) {
+            $this->response->errorUnauthorized();
+        }
 
-        //return $this->token($user->generateToken());
+        $decodedToken = app('jwt-manager')->decode($tokens['api_token']);
+        $userId = $decodedToken->user_id;
+
+        event(new UserSignedIn($userId));
+
+        return $this->authWithJwt($tokens);
     }
 
     public function signup(Request $request) {

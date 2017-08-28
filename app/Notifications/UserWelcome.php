@@ -1,6 +1,4 @@
-<?php
-
-namespace App\Notifications;
+<?php namespace App\Notifications;
 
 use App\Mail\WelcomeMail as Mailable;
 use Illuminate\Bus\Queueable;

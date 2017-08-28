@@ -1,11 +1,12 @@
-<?php
-
-namespace App\Http\Middleware;
+<?php namespace App\Http\Middleware;
 
 use Closure;
+use Dingo\Api\Routing\Helpers;
 
-class JWTCheck
+class VerifyJWT
 {
+    use Helpers;
+
     /**
      * Handle an incoming request.
      *
@@ -16,19 +17,22 @@ class JWTCheck
     public function handle($request, Closure $next)
     {
         if ($request->ajax() || $request->wantsJson()) {
+            // Check token
+            // Si el token esta expirado, llamar a refresh token desde endpoint
+            // Devolver tokens nuevos y guardar en cliente
             if (($errors = auth('jwt')->validateToken('api_token')) === true) {
                 if (auth('jwt')->tokenIsApi()) {
-                    if (auth('jwt')->guest()) {
-                        return response()->json('Unauthorized.', 401);
+                    if (auth ( 'jwt' )->guest ()) {
+                        $this->response->errorUnauthorized ();
                     }
                 }
             }
             else {
-                return response()->json(['error' => $errors['message']], $errors['code']);
+                $this->response->error($errors['message'], $errors['code']);
             }
         }
         else {
-            return response()->json(['error' =>'Request must accept a json response.'], 422);
+            $this->response->error('Request must accept a json response.', 422);
         }
 
         return $next($request);

@@ -10,8 +10,15 @@ class WelcomeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    /**
+     * @var User
+     */
     protected $user;
 
+    /**
+     * WelcomeMail constructor.
+     * @param User $user
+     */
     public function __construct(User $user)
     {
         $this->user = $user;

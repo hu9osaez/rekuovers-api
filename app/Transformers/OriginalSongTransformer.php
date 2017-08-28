@@ -7,10 +7,12 @@ class OriginalSongTransformer extends TransformerAbstract
 {
     public function transform(OriginalSong $originalSong)
     {
+        $artistsIds = $originalSong->artists;
+
         $formattedOriginalSong = [
             'id' => (int) $originalSong->id,
             'title' => $originalSong->title,
-            'artists' => $originalSong->artists
+            'artists' => $artistsIds->pluck('id')
         ];
 
         return $formattedOriginalSong;

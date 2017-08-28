@@ -2,6 +2,7 @@
 
 use App\Events\UserSignedIn;
 use App\Events\UserSignedUp;
+use App\Http\Controllers\Api\v1\Requests\SignUpRequest;
 use App\Http\Controllers\Api\v1\Traits\AuthResponse;
 use App\Http\Controllers\Api\v1\Requests\SignInRequest;
 use App\Models\User;
@@ -14,14 +15,7 @@ class AuthController extends BaseController
 {
     use AuthResponse;
 
-    private $signupRules = [
-        'name' => 'required',
-        'username' => 'required|unique:users,username',
-        'email' => 'required|email|unique:users,email',
-        'password' => 'required|min:6'
-    ];
-
-    public function signin(SignInRequest $request) {
+    public function signIn(SignInRequest $request) {
         $loginField = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
         $credentials = [
@@ -43,13 +37,7 @@ class AuthController extends BaseController
         return $this->authWithJwt($tokens);
     }
 
-    public function signup(Request $request) {
-        $validator = app('validator')->make($request->all(), $this->signupRules);
-
-        if ($validator->fails()) {
-            throw new ValidationHttpException($validator->errors());
-        }
-
+    public function signUp(SignUpRequest $request) {
         $user = User::create([
             'name' => $request->name,
             'username' => $request->username,
@@ -61,10 +49,12 @@ class AuthController extends BaseController
             $this->response->errorUnauthorized();
         }
 
+        $tokens = auth('jwt')->attempt($request->only(['username', 'password']));
+
         event(new UserSignedUp($user->id));
         event(new UserSignedIn($user->id));
 
-        return $this->token($user->generateToken());
+        return $this->authWithJwt($tokens);
     }
 
     public function authorizeFacebook(Request $request) {
@@ -80,23 +70,28 @@ class AuthController extends BaseController
         if($user = User::where('facebook_id', $facebookUser->id)->first()) {
             event(new UserSignedIn($user->id));
 
-            return $this->token($user->generateToken());
+            $tokens = auth('jwt')->issueToken($user);
+
+            return $this->authWithJwt($tokens);
         }
         else {
             // Si <email> NO existe ===> crear usuario, asociar datos y devolver <api_token>
             if(!User::where('email', $facebookUser->email)->first())
             {
-                $newUser = User::create([
-                    'name' => $facebookUser->name,
-                    'username' => str_slug($facebookUser->name),
-                    'email' => $facebookUser->email,
-                    'facebook_id' => $facebookUser->id
-                ]);
+                $newUser = new User();
+                $newUser->name = $facebookUser->name;
+                $newUser->username = str_slug($facebookUser->name);
+                $newUser->email = $facebookUser->email;
+                $newUser->facebook_id = $facebookUser->id;
+
+                $newUser->save();
 
                 event(new UserSignedUp($newUser->id));
                 event(new UserSignedIn($newUser->id));
 
-                return $this->token($newUser->generateToken());
+                $tokens = auth('jwt')->issueToken($newUser);
+
+                return $this->authWithJwt($tokens);
             }
             // Usuario(email) existe y NO tiene facebook_id ===> asociar datos y devolver token
             elseif($user = User::where('email', $facebookUser->email)->whereNull('facebook_id')->first())
@@ -106,7 +101,9 @@ class AuthController extends BaseController
 
                 event(new UserSignedIn($user->id));
 
-                return $this->token($user->generateToken());
+                $tokens = auth('jwt')->issueToken($user);
+
+                return $this->authWithJwt($tokens);
             }
             // Usuario(email) existe y SI tiene facebook_id ===> devolver token
             else
@@ -115,12 +112,26 @@ class AuthController extends BaseController
 
                 event(new UserSignedIn($user->id));
 
-                return $this->token($user->generateToken());
+                $tokens = auth('jwt')->issueToken($user);
+
+                return $this->authWithJwt($tokens);
             }
         }
     }
 
+    public function refreshToken() {
+        if (($errors = auth('jwt')->validateToken('refresh_token')) === true) {
+            $tokens = auth('jwt')->refreshToken();
+
+            return $this->authWithJwt($tokens);
+        }
+        else {
+            $this->response->error($errors['message'], $errors['code']);
+        }
+    }
+
     public function showMe() {
-        return $this->response->item(app('auth')->user(), new UserTransformer());
+        $user = auth('jwt')->user();
+        return $this->response->item($user, new UserTransformer());
     }
 }

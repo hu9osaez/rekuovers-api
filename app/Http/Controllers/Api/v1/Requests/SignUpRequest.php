@@ -2,7 +2,7 @@
 
 use Dingo\Api\Http\FormRequest;
 
-class SignInRequest extends FormRequest
+class SignUpRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,10 @@ class SignInRequest extends FormRequest
     public function rules()
     {
         return [
-            'login' => 'required',
-            'password' => 'required'
+            'name' => 'required',
+            'username' => 'required|unique:users,username',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6'
         ];
     }
 }

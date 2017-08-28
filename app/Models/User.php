@@ -60,7 +60,7 @@ class User extends Authenticatable implements AuditableContract
      */
     public function songs()
     {
-        return $this->hasMany(Song::class);
+        return $this->hasMany(Song::class, 'publisher_id', 'id');
     }
 
     /**

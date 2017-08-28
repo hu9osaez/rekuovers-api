@@ -14,9 +14,7 @@ class SignUpListener
      */
     public function handle(UserSignedUp $event)
     {
-        $user = User::find($event->user_id);
-        $user->activation_code = str_random(40);
-        $user->save();
+        $user = User::find($event->userId);
 
         $user->notify(new UserWelcome());
     }

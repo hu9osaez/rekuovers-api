@@ -14,7 +14,7 @@ class LikesTableSeeder extends Seeder
     {
         for ($i=0; $i < 100; $i++) {
             DB::table('likes')->insert([
-                'song_id' => rand(1, 6),
+                'cover_id' => rand(1, 6),
                 'user_id' => rand(2, 4)
             ]);
         }

@@ -23,13 +23,13 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\v1', 'as' => 'api:
     $api->get('artists', 'ArtistController@index');
     $api->get('artists/{id}', 'ArtistController@show')->name('artists:show');
 
-    $api->get('original-songs', 'OriginalSongController@index');
-    $api->get('original-songs/{id}', 'OriginalSongController@show');
+    $api->get('songs', 'CoverController@index');
+    $api->get('songs/{id}', 'CoverController@show');
 
-    $api->get('songs', 'SongController@index');
-    $api->get('songs/{id}', 'SongController@show');
-    //$api->get('songs/{id}/likes/exists', ['uses' => 'SongController@existsLike', 'middleware' => 'auth']);
-    //$api->post('songs/{id}/likes', ['uses' => 'SongController@storeLike', 'middleware' => 'auth']);
+    $api->get('covers', 'CoverController@index');
+    $api->get('covers/{id}', 'CoverController@show');
+    //$api->get('songs/{id}/likes/exists', ['uses' => 'CoverController@existsLike', 'middleware' => 'auth']);
+    //$api->post('songs/{id}/likes', ['uses' => 'CoverController@storeLike', 'middleware' => 'auth']);
 
     $api->get('users/{username}', 'UserController@show');
 });

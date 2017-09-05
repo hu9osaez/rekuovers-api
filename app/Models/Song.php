@@ -10,10 +10,7 @@ class Song extends Model
      * @var array
      */
     protected $casts = [
-        'original_song_id' => 'integer',
-        'publisher_id' => 'integer',
-        'type' => 'string',
-        'youtube_id' => 'string'
+        'name' => 'string'
     ];
 
     /**
@@ -22,10 +19,7 @@ class Song extends Model
      * @var array
      */
     protected $fillable = [
-        'original_song_id',
-        'publisher_id',
-        'type',
-        'youtube_id'
+        'name'
     ];
 
     /**
@@ -36,32 +30,12 @@ class Song extends Model
     protected $table = 'songs';
 
     /**
-     * Return the original song that belongs the song.
+     * Return the artist(s) that owns the original song.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function originalSong()
+    public function artists()
     {
-        return $this->belongsTo(OriginalSong::class);
-    }
-
-    /**
-     * Return the user publisher that belongs the song.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function publisher()
-    {
-        return $this->belongsTo(User::class, 'publisher_id', 'id');
-    }
-
-    /**
-     * Return the likes that has the song
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function likes()
-    {
-        return $this->hasMany(Like::class);
+        return $this->belongsToMany(Artist::class, 'artist_song');
     }
 }

@@ -2,7 +2,7 @@
 
 use App\Models\Artist;
 use App\Transformers\ArtistTransformer;
-use App\Transformers\OriginalSongTransformer;
+use App\Transformers\SongTransformer;
 
 /**
  * Artist resource representation.
@@ -34,13 +34,13 @@ class ArtistController extends BaseController {
         return $this->response->item($artist, new ArtistTransformer());
     }
 
-    public function showOriginalSongs($id) {
+    public function showSongs($id) {
         $artist = $this->artist->find($id);
 
         if(!$artist) {
             $this->response->errorNotFound();
         }
 
-        return $this->response->paginator($artist->originalSongs()->paginate(), new OriginalSongTransformer());
+        return $this->response->paginator($artist->songs()->paginate(), new SongTransformer());
     }
 }

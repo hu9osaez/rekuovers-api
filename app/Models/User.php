@@ -58,9 +58,9 @@ class User extends Authenticatable implements AuditableContract
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function songs()
+    public function covers()
     {
-        return $this->hasMany(Song::class, 'publisher_id', 'id');
+        return $this->hasMany(Cover::class, 'publisher_id', 'id');
     }
 
     /**

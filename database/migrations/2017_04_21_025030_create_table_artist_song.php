@@ -13,11 +13,11 @@ class CreateTableArtistOriginalSong extends Migration
      */
     public function up()
     {
-        Schema::create('artist_originalsong', function (Blueprint $table) {
+        Schema::create('artist_song', function (Blueprint $table) {
             $table->bigInteger('artist_id')->unsigned()->index();
             $table->foreign('artist_id')->references('id')->on('artists')->onDelete('cascade');
-            $table->bigInteger('original_song_id')->unsigned()->index();
-            $table->foreign('original_song_id')->references('id')->on('original_songs')->onDelete('cascade');
+            $table->bigInteger('song_id')->unsigned()->index();
+            $table->foreign('song_id')->references('id')->on('songs')->onDelete('cascade');
         });
     }
 
@@ -28,6 +28,6 @@ class CreateTableArtistOriginalSong extends Migration
      */
     public function down()
     {
-        Schema::drop('artist_originalsong');
+        Schema::drop('artist_song');
     }
 }

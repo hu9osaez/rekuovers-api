@@ -43,8 +43,8 @@ class Artist extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function originalSongs()
+    public function songs()
     {
-        return $this->belongsToMany(OriginalSong::class, 'artist_originalsong');
+        return $this->belongsToMany(Cover::class, 'artist_song');
     }
 }

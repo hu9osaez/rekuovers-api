@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableSongs extends Migration
+class CreateTableCovers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateTableSongs extends Migration
      */
     public function up()
     {
-        Schema::create('songs', function (Blueprint $table) {
+        Schema::create('covers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('original_song_id')->unsigned();
+            $table->bigInteger('song_id')->unsigned();
             $table->integer('publisher_id')->unsigned()->default(1);
             $table->string('type', 5);
             $table->string('youtube_id');
             $table->timestamps();
 
-            $table->foreign('original_song_id')->references('id')->on('original_songs');
+            $table->foreign('song_id')->references('id')->on('songs');
             $table->foreign('publisher_id')->references('id')->on('users');
         });
     }
@@ -33,6 +33,6 @@ class CreateTableSongs extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('songs');
+        Schema::dropIfExists('covers');
     }
 }

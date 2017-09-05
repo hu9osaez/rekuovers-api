@@ -1,12 +1,11 @@
 <?php namespace App\Http\Controllers\Api\v1;
 
-use App\Models\Like;
 use App\Models\Song;
-use App\Transformers\OriginalSongTransformer;
+use App\Transformers\ArtistTransformer;
 use App\Transformers\SongTransformer;
 
 /**
- * Song resource representation.
+ * Original song resource representation.
  *
  * @Resource("Songs", uri="/songs")
  */
@@ -20,7 +19,7 @@ class SongController extends BaseController
     }
 
     public function index() {
-        $songs = $this->song->orderBy('id', 'desc')->paginate(12);
+        $songs = $this->song->paginate();
 
         return $this->response->paginator($songs, new SongTransformer());
     }
@@ -35,63 +34,13 @@ class SongController extends BaseController
         return $this->response->item($song, new SongTransformer());
     }
 
-    public function showOriginalSong($id) {
+    public function showArtists($id) {
         $song = $this->song->find($id);
 
         if(!$song) {
             $this->response->errorNotFound();
         }
 
-        return $this->response->item($song->originalSong, new OriginalSongTransformer());
-    }
-
-    public function existsLike($id)
-    {
-        $song = $this->song->find($id);
-
-        if(!$song) {
-            $this->response->errorNotFound();
-        }
-
-        if(Like::where([
-            ['user_id', '=', app('auth')->id()],
-            ['song_id', '=', $id]
-        ])->exists()) {
-            return $this->response->array([
-                'message' => 'Like exists.'
-            ]);
-        }
-
-        $this->response->errorNotFound();
-    }
-
-    public function storeLike($id) {
-        $like = Like::withTrashed()->where([
-            ['user_id', '=', app('auth')->id()],
-            ['song_id', '=', $id]
-        ])->first();
-
-        if (is_null($like)) {
-            Like::create([
-                'user_id' => app('auth')->id(),
-                'song_id' => $id
-            ]);
-
-            return $this->response
-                ->array(['message' => 'Like created successfully.'])
-                ->setStatusCode(201);
-        } else {
-            if (is_null($like->deleted_at)) {
-                $like->delete();
-
-                return $this->response->noContent();
-            } else {
-                $like->restore();
-
-                return $this->response
-                    ->array(['message' => 'Like created successfully.'])
-                    ->setStatusCode(201);
-            }
-        }
+        return $this->response->collection($song->artists, new ArtistTransformer());
     }
 }

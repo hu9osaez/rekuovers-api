@@ -44,13 +44,13 @@ class Like extends Model
     protected $table = 'likes';
 
     /**
-     * Return the songs that belongs the like.
+     * Return the cover that belongs the like.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function song()
+    public function cover()
     {
-        return $this->belongsTo(Song::class);
+        return $this->belongsTo(Cover::class);
     }
 
     /**

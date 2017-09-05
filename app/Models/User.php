@@ -18,7 +18,6 @@ class User extends Authenticatable implements AuditableContract
         'name'        => 'string',
         'username'    => 'string',
         'email'       => 'string',
-        'api_token'   => 'string',
         'facebook_id' => 'string'
     ];
 
@@ -41,7 +40,6 @@ class User extends Authenticatable implements AuditableContract
      */
     protected $hidden = [
         'password',
-        'api_token',
         'facebook_id',
         'updated_at'
     ];
@@ -99,16 +97,5 @@ class User extends Authenticatable implements AuditableContract
         }
 
         $this->attributes['email'] = $email;
-    }
-
-    /**
-     * Others methods
-     */
-    public function generateToken()
-    {
-        $this->api_token = str_random(60);
-        $this->save();
-
-        return $this->api_token;
     }
 }

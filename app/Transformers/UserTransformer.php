@@ -11,7 +11,7 @@ class UserTransformer extends TransformerAbstract
             'id' => (int) $user->id,
             'username' => $user->username,
             'name' => $user->name,
-            'published_songs' => $user->songs->count(),
+            'published_covers' => $user->covers->count(),
             'liked_songs' => $user->likes->count(),
             'created_at' => $user->created_at->toDateTimeString()
         ];

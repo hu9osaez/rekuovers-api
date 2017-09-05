@@ -5,16 +5,16 @@ use League\Fractal\TransformerAbstract;
 
 class SongTransformer extends TransformerAbstract
 {
-    public function transform(Song $originalSong)
+    public function transform(Song $song)
     {
-        $artistsIds = $originalSong->artists;
+        $artistsIds = $song->artists;
 
-        $formattedOriginalSong = [
-            'id' => (int) $originalSong->id,
-            'title' => $originalSong->title,
+        $formattedSong = [
+            'id' => (int) $song->id,
+            'title' => $song->title,
             'artists' => $artistsIds->pluck('id')
         ];
 
-        return $formattedOriginalSong;
+        return $formattedSong;
     }
 }

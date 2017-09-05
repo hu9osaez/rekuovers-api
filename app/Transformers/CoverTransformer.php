@@ -7,10 +7,10 @@ class CoverTransformer extends TransformerAbstract
 {
     public function transform(Cover $song)
     {
-        $formattedSong = [
+        $formattedCover = [
             'id' => (int) $song->id,
-            'original_song_id' => $song->original_song_id,
-            'original_song_title' => $song->originalSong->title,
+            'song_id' => $song->song_id,
+            'song_title' => $song->song->title,
             'publisher_id' => $song->publisher->id,
             'publisher_name' => $song->publisher->name,
             'type' => $song->type,
@@ -19,6 +19,6 @@ class CoverTransformer extends TransformerAbstract
             'created_at' => $song->created_at->toDateTimeString()
         ];
 
-        return $formattedSong;
+        return $formattedCover;
     }
 }

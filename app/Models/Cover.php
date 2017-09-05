@@ -10,7 +10,7 @@ class Cover extends Model
      * @var array
      */
     protected $casts = [
-        'original_song_id' => 'integer',
+        'song_id' => 'integer',
         'publisher_id' => 'integer',
         'type' => 'string',
         'youtube_id' => 'string'
@@ -22,7 +22,7 @@ class Cover extends Model
      * @var array
      */
     protected $fillable = [
-        'original_song_id',
+        'song_id',
         'publisher_id',
         'type',
         'youtube_id'
@@ -36,11 +36,11 @@ class Cover extends Model
     protected $table = 'songs';
 
     /**
-     * Return the original song that belongs the song.
+     * Return the song that belongs the cover.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function originalSong()
+    public function song()
     {
         return $this->belongsTo(Song::class);
     }

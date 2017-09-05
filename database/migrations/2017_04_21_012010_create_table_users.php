@@ -21,7 +21,6 @@ class CreateTableUsers extends Migration
             $table->string('password', 60)->nullable();
             $table->boolean('confirmed')->default(false);
             $table->string('confirmation_code')->nullable();
-            $table->string('api_token', 60)->unique()->nullable();
             $table->string('facebook_id')->nullable();
             $table->timestamp('last_signin')->nullable();
             $table->ipAddress('last_signin_ip')->nullable();

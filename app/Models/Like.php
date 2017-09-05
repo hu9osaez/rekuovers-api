@@ -13,7 +13,7 @@ class Like extends Model
      * @var array
      */
     protected $casts = [
-        'song_id' => 'integer',
+        'cover_id' => 'integer',
         'user_id' => 'integer'
     ];
 
@@ -32,7 +32,7 @@ class Like extends Model
      * @var array
      */
     protected $fillable = [
-        'song_id',
+        'cover_id',
         'user_id'
     ];
 

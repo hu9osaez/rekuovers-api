@@ -5,7 +5,7 @@ use App\Transformers\ArtistTransformer;
 use App\Transformers\SongTransformer;
 
 /**
- * Original song resource representation.
+ * Song resource representation.
  *
  * @Resource("Songs", uri="/songs")
  */

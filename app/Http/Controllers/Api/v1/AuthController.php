@@ -55,7 +55,9 @@ class AuthController extends BaseController
         event(new UserSignedUp($user->id));
         event(new UserSignedIn($user->id));
 
-        return $this->authWithJwt($tokens);
+        $authorization = new Authorization($tokens);
+
+        return new AuthResource($authorization);
     }
 
     public function authorizeFacebook(Request $request) {

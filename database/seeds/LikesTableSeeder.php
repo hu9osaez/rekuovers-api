@@ -1,7 +1,7 @@
 <?php
 
+use App\Models\Like;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class LikesTableSeeder extends Seeder
 {
@@ -13,7 +13,7 @@ class LikesTableSeeder extends Seeder
     public function run()
     {
         for ($i=0; $i < 100; $i++) {
-            DB::table('likes')->insert([
+            Like::create([
                 'cover_id' => rand(1, 6),
                 'user_id' => rand(2, 4)
             ]);

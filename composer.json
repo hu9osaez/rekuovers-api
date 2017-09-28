@@ -12,8 +12,8 @@
         "laravel/tinker": "~1.0",
         "owen-it/laravel-auditing": "^4.1",
         "paulvl/jwt-guard": "1.*",
-        "rap2hpoutre/laravel-log-viewer": "^0.10.4",
-        "webpatser/laravel-uuid": "^3.0"
+        "ramsey/uuid": "^3.7",
+        "rap2hpoutre/laravel-log-viewer": "^0.10.4"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

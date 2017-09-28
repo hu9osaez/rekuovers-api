@@ -15,6 +15,7 @@ class CreateTableSongs extends Migration
     {
         Schema::create('songs', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->uuid('uuid')->unique()->index();
             $table->string('title');
             $table->timestamps();
             $table->softDeletes();

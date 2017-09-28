@@ -1,8 +1,7 @@
 <?php
 
-use Carbon\Carbon;
+use App\Models\Cover;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class CoversTableSeeder extends Seeder
 {
@@ -13,13 +12,10 @@ class CoversTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('covers')->insert([
-            ['song_id' => 1, 'type' => 'cover', 'youtube_id' => '-MkrfpSA1ec', 'created_at' => Carbon::now()],
-            ['song_id' => 1, 'type' => 'cover', 'youtube_id' => 'qu9V8jhWeYA', 'created_at' => Carbon::now()],
-            ['song_id' => 1, 'type' => 'cover', 'youtube_id' => '3AMHN0zgTRc', 'created_at' => Carbon::now()],
-            ['song_id' => 2, 'type' => 'remix', 'youtube_id' => 'kwW0IAkwIWc', 'created_at' => Carbon::now()],
-            ['song_id' => 3, 'type' => 'cover', 'youtube_id' => 'rVJVzyR-lCQ', 'created_at' => Carbon::now()],
-            ['song_id' => 4, 'type' => 'cover', 'youtube_id' => 'g_uYn8AVqeU', 'created_at' => Carbon::now()]
-        ]);
+        Cover::create(['song_id' => 1, 'type' => 'cover', 'youtube_id' => '-MkrfpSA1ec']);
+        Cover::create(['song_id' => 1, 'type' => 'cover', 'youtube_id' => 'qu9V8jhWeYA']);
+        Cover::create(['song_id' => 1, 'type' => 'cover', 'youtube_id' => '3AMHN0zgTRc']);
+        Cover::create(['song_id' => 2, 'type' => 'remix', 'youtube_id' => 'kwW0IAkwIWc']);
+        Cover::create(['song_id' => 4, 'type' => 'cover', 'youtube_id' => 'g_uYn8AVqeU']);
     }
 }

@@ -15,6 +15,7 @@ class CreateTableArtists extends Migration
     {
         Schema::create('artists', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->uuid('uuid')->unique()->index();
             $table->string('name', 100);
             $table->string('image')->nullable();
             $table->timestamps();

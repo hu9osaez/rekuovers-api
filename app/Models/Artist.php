@@ -1,9 +1,12 @@
 <?php namespace App\Models;
 
+use App\Models\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 
 class Artist extends Model
 {
+    use Uuids;
+
     /**
      * The attributes that should be casted to native types.
      *

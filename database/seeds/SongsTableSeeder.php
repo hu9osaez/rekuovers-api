@@ -2,7 +2,6 @@
 
 use App\Models\Song;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class SongsTableSeeder extends Seeder
 {
@@ -13,16 +12,9 @@ class SongsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('songs')->insert([
-            ['title' => 'I Feel It Coming'],
-            ['title' => 'We don\'t talk anymore'],
-            ['title' => 'Fake love'],
-            ['title' => 'One Dance']
-        ]);
-
-        Song::find(1)->artists()->attach([1,2]);
-        Song::find(2)->artists()->attach([3,4]);
-        Song::find(3)->artists()->attach(5);
-        Song::find(4)->artists()->attach(5);
+        Song::create(['title' => 'I Feel It Coming'])->artists()->attach([1,2]);
+        Song::create(['title' => 'We don\'t talk anymore'])->artists()->attach([3,4]);
+        Song::create(['title' => 'Fake love'])->artists()->attach(5);
+        Song::create(['title' => 'One Dance'])->artists()->attach(5);
     }
 }

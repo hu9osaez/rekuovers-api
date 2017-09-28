@@ -15,8 +15,9 @@ class CreateTableCovers extends Migration
     {
         Schema::create('covers', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->uuid('uuid')->unique()->index();
             $table->bigInteger('song_id')->unsigned();
-            $table->integer('publisher_id')->unsigned()->default(1);
+            $table->bigInteger('publisher_id')->unsigned()->default(1);
             $table->string('type', 5);
             $table->string('youtube_id');
             $table->timestamps();

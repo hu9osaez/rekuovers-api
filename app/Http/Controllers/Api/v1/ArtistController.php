@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Resources\Artist as ArtistResource;
 use App\Models\Artist;
 use App\Transformers\ArtistTransformer;
 use App\Transformers\SongTransformer;
@@ -18,20 +19,27 @@ class ArtistController extends BaseController {
         $this->artist = $artist;
     }
 
+    /**
+     * @return mixed
+     */
     public function index() {
         $artists = $this->artist->paginate();
 
-        return $this->response->paginator($artists, new ArtistTransformer());
+        return ArtistResource::collection($artists);
     }
 
-    public function show($id) {
-        $artist = $this->artist->find($id);
+    /**
+     * @param $uuid
+     * @return ArtistResource
+     */
+    public function show($uuid) {
+        $artist = $this->artist->byUuid($uuid);
 
         if(!$artist) {
-            $this->response->errorNotFound();
+            abort(404);
         }
 
-        return $this->response->item($artist, new ArtistTransformer());
+        return new ArtistResource($artist);
     }
 
     public function showSongs($id) {

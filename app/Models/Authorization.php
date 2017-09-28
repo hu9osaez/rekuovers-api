@@ -1,7 +1,5 @@
 <?php namespace App\Models;
 
-use Carbon\Carbon;
-
 class Authorization
 {
     /**
@@ -9,12 +7,27 @@ class Authorization
      */
     protected $token;
 
+    /**
+     * @var string
+     */
     protected $refreshToken;
 
-    public function __construct($tokens = null)
+    /**
+     * Authorization constructor.
+     * @param array $tokens
+     */
+    public function __construct($tokens = [])
     {
         $this->token = $tokens['api_token'];
         $this->refreshToken = $tokens['refresh_token'];
+    }
+
+    public function getToken() {
+        return $this->token;
+    }
+
+    public function getRefreshToken() {
+        return $this->refreshToken;
     }
 
     /**

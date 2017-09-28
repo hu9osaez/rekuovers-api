@@ -20,6 +20,7 @@ class CreateTableCovers extends Migration
             $table->string('type', 5);
             $table->string('youtube_id');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('song_id')->references('id')->on('songs');
             $table->foreign('publisher_id')->references('id')->on('users');

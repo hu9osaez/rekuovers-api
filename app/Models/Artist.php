@@ -23,15 +23,6 @@ class Artist extends Model
     ];
 
     /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'pivot'
-    ];
-
-    /**
      * The table associated with the model.
      *
      * @var string
@@ -39,12 +30,12 @@ class Artist extends Model
     protected $table = 'artists';
 
     /**
-     * Return the original songs that has the artist.
+     * Return the songs that has the artist.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function songs()
     {
-        return $this->belongsToMany(Cover::class, 'artist_song');
+        return $this->belongsToMany(Song::class, 'artist_song');
     }
 }

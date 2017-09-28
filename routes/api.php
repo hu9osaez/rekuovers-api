@@ -1,4 +1,7 @@
 <?php
+
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -10,6 +13,15 @@
 |
 */
 
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+Route::namespace('Api\v1')->group(function () {
+    Route::post('auth/signin', 'AuthController@signIn');
+});
+
+/*
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\v1', 'as' => 'api:'], function ($api) {
@@ -23,8 +35,8 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\v1', 'as' => 'api:
     $api->get('artists', 'ArtistController@index');
     $api->get('artists/{id}', 'ArtistController@show')->name('artists:show');
 
-    $api->get('songs', 'CoverController@index');
-    $api->get('songs/{id}', 'CoverController@show');
+    $api->get('songs', 'SongController@index');
+    $api->get('songs/{id}', 'SongController@show');
 
     $api->get('covers', 'CoverController@index');
     $api->get('covers/{id}', 'CoverController@show');
@@ -33,3 +45,4 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\v1', 'as' => 'api:
 
     $api->get('users/{username}', 'UserController@show');
 });
+*/

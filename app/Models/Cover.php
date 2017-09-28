@@ -33,16 +33,16 @@ class Cover extends Model
      *
      * @var string
      */
-    protected $table = 'songs';
+    protected $table = 'covers';
 
     /**
-     * Return the song that belongs the cover.
+     * Return the likes that has the song
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function song()
+    public function likes()
     {
-        return $this->belongsTo(Song::class);
+        return $this->hasMany(Like::class);
     }
 
     /**
@@ -56,12 +56,12 @@ class Cover extends Model
     }
 
     /**
-     * Return the likes that has the song
+     * Return the song that belongs the cover.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function likes()
+    public function song()
     {
-        return $this->hasMany(Like::class);
+        return $this->belongsTo(Song::class, 'song_id', 'id');
     }
 }

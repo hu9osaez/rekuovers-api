@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Api\v1\Requests;
 
-use Dingo\Api\Http\FormRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
 class SignUpRequest extends FormRequest
 {

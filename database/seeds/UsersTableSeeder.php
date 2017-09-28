@@ -20,6 +20,7 @@ class UsersTableSeeder extends Seeder
         }, $users->all());
 
         User::create([
+            'uuid' => \Uuid::generate()->string,
             'name' => 'Rekuovers',
             'username' => 'rekuovers',
             'email' => 'hu9o.saez+admin@gmail.com',

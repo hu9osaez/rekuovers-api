@@ -17,9 +17,8 @@ class CreateTableLikes extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('cover_id')->unsigned();
             $table->integer('user_id')->unsigned();
-
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('cover_id')->references('id')->on('covers');
             $table->foreign('user_id')->references('id')->on('users');

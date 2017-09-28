@@ -18,6 +18,7 @@ class CreateTableArtists extends Migration
             $table->string('name', 100);
             $table->string('image')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

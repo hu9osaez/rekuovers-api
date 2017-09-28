@@ -5,18 +5,18 @@ use League\Fractal\TransformerAbstract;
 
 class CoverTransformer extends TransformerAbstract
 {
-    public function transform(Cover $song)
+    public function transform(Cover $cover)
     {
         $formattedCover = [
-            'id' => (int) $song->id,
-            'song_id' => $song->song_id,
-            'song_title' => $song->song->title,
-            'publisher_id' => $song->publisher->id,
-            'publisher_name' => $song->publisher->name,
-            'type' => $song->type,
-            'youtube_id' => $song->youtube_id,
-            'likes_count' => $song->likes->count(),
-            'created_at' => $song->created_at->toDateTimeString()
+            'id' => (int) $cover->id,
+            'song_id' => $cover->song_id,
+            'song_title' => $cover->song->title,
+            'publisher_id' => $cover->publisher->id,
+            'publisher_name' => $cover->publisher->name,
+            'type' => $cover->type,
+            'youtube_id' => $cover->youtube_id,
+            'likes_count' => $cover->likes->count(),
+            'created_at' => $cover->created_at->toDateTimeString()
         ];
 
         return $formattedCover;

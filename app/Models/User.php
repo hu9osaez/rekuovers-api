@@ -1,5 +1,6 @@
 <?php namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use OwenIt\Auditing\Auditable;
@@ -7,7 +8,7 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 class User extends Authenticatable implements AuditableContract
 {
-    use Auditable, Notifiable;
+    use Auditable, Notifiable, SoftDeletes;
 
     /**
      * The attributes that should be casted to native types.
@@ -15,6 +16,7 @@ class User extends Authenticatable implements AuditableContract
      * @var array
      */
     protected $casts = [
+        'uuid'        => 'string',
         'name'        => 'string',
         'username'    => 'string',
         'email'       => 'string',
@@ -27,6 +29,7 @@ class User extends Authenticatable implements AuditableContract
      * @var array
      */
     protected $fillable = [
+        'uuid',
         'name',
         'username',
         'email',

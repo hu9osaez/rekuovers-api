@@ -12,5 +12,5 @@
 */
 
 Route::get('/', function () {
-    return response()->json(['status' => 'Soon! Yay']);
+    return response()->json(['status' => 'Soon!']);
 });

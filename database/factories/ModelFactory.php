@@ -14,6 +14,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     return [
+        'uuid' => $faker->uuid,
         'name' => $faker->name,
         'username' => $faker->userName,
         'email' => $faker->unique()->safeEmail,

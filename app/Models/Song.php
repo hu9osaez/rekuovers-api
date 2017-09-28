@@ -10,7 +10,7 @@ class Song extends Model
      * @var array
      */
     protected $casts = [
-        'name' => 'string'
+        'title' => 'string'
     ];
 
     /**
@@ -19,7 +19,7 @@ class Song extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'title'
     ];
 
     /**

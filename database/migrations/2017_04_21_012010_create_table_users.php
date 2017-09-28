@@ -15,6 +15,7 @@ class CreateTableUsers extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->uuid('uuid')->index()->unique();
             $table->string('name', 50);
             $table->string('username', 32)->unique();
             $table->string('email')->unique();
@@ -24,7 +25,9 @@ class CreateTableUsers extends Migration
             $table->string('facebook_id')->nullable();
             $table->timestamp('last_signin')->nullable();
             $table->ipAddress('last_signin_ip')->nullable();
+            $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

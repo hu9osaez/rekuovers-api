@@ -3,17 +3,16 @@
 use App\Events\UserSignedIn;
 use App\Events\UserSignedUp;
 use App\Http\Controllers\Api\v1\Requests\SignUpRequest;
-use App\Http\Controllers\Api\v1\Traits\AuthResponse;
 use App\Http\Controllers\Api\v1\Requests\SignInRequest;
+use App\Http\Resources\Authentication as AuthResource;
+use App\Models\Authorization;
 use App\Models\User;
 use App\Transformers\UserTransformer;
-use Dingo\Api\Exception\ValidationHttpException;
 use Illuminate\Http\Request; // @TODO: Change Request to Request from Dingo
 use Socialite;
 
 class AuthController extends BaseController
 {
-    use AuthResponse;
 
     public function signIn(SignInRequest $request) {
         $loginField = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
@@ -26,7 +25,7 @@ class AuthController extends BaseController
         $tokens = auth('jwt')->attempt($credentials);
 
         if(!$tokens) {
-            $this->response->errorUnauthorized();
+            abort(401, 'Unauthorized');
         }
 
         $decodedToken = app('jwt-manager')->decode($tokens['api_token']);
@@ -34,7 +33,9 @@ class AuthController extends BaseController
 
         event(new UserSignedIn($userId));
 
-        return $this->authWithJwt($tokens);
+        $authorization = new Authorization($tokens);
+
+        return new AuthResource($authorization);
     }
 
     public function signUp(SignUpRequest $request) {
@@ -46,7 +47,7 @@ class AuthController extends BaseController
         ]);
 
         if(!$user) {
-            $this->response->errorUnauthorized();
+            abort(401, 'Unauthorized');
         }
 
         $tokens = auth('jwt')->attempt($request->only(['username', 'password']));
@@ -126,7 +127,7 @@ class AuthController extends BaseController
             return $this->authWithJwt($tokens);
         }
         else {
-            $this->response->error($errors['message'], $errors['code']);
+            return $this->response->error($errors['message'], $errors['code']);
         }
     }
 

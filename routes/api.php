@@ -36,15 +36,11 @@ Route::namespace('Api\v1')->group(function () {
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\v1', 'as' => 'api:'], function ($api) {
-    $api->post('auth/signin', ['uses' => 'AuthController@signIn']);
-    $api->post('auth/signup', 'AuthController@signUp');
     $api->get('auth/facebook', 'AuthController@authorizeFacebook');
 
     $api->post('auth/refresh', ['uses' => 'AuthController@refreshToken']);
     $api->get('auth/me', ['uses' => 'AuthController@showMe', 'middleware' => 'verify.jwt']);
 
-    $api->get('covers', 'CoverController@index');
-    $api->get('covers/{id}', 'CoverController@show');
     //$api->get('songs/{id}/likes/exists', ['uses' => 'CoverController@existsLike', 'middleware' => 'auth']);
     //$api->post('songs/{id}/likes', ['uses' => 'CoverController@storeLike', 'middleware' => 'auth']);
 

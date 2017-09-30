@@ -7,7 +7,6 @@ use App\Http\Controllers\Api\v1\Requests\SignInRequest;
 use App\Http\Resources\AuthenticationResource;
 use App\Models\Authorization;
 use App\Models\User;
-use App\Transformers\UserTransformer;
 use Illuminate\Http\Request; // @TODO: Change Request to Request from Dingo
 use Socialite;
 

@@ -17,6 +17,7 @@ class CreateTableSongs extends Migration
             $table->bigIncrements('id');
             $table->uuid('uuid')->unique()->index();
             $table->string('title');
+            $table->string('slug');
             $table->timestamps();
             $table->softDeletes();
         });

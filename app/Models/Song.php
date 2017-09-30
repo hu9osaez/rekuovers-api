@@ -1,11 +1,13 @@
 <?php namespace App\Models;
 
 use App\Models\Traits\Uuids;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 use Illuminate\Database\Eloquent\Model;
 
 class Song extends Model
 {
-    use Uuids;
+    use Sluggable, SluggableScopeHelpers, Uuids;
 
     /**
      * The attributes that should be casted to native types.
@@ -49,5 +51,19 @@ class Song extends Model
     public function artists()
     {
         return $this->belongsToMany(Artist::class, 'artist_song');
+    }
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
     }
 }

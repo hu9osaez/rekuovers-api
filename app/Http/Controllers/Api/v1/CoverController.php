@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Resources\CoverResource;
 use App\Models\Like;
 use App\Models\Cover;
-use App\Transformers\SongTransformer;
 use App\Transformers\CoverTransformer;
 
 /**
@@ -20,29 +20,19 @@ class CoverController extends BaseController
     }
 
     public function index() {
-        $covers = $this->cover->orderBy('id', 'desc')->paginate(12);
+        $covers = $this->cover->orderBy('created_at', 'desc')->paginate(12);
 
-        return $this->response->paginator($covers, new CoverTransformer());
+        return CoverResource::collection($covers);
     }
 
-    public function show($id) {
-        $cover = $this->cover->find($id);
+    public function show($uuid) {
+        $cover = $this->cover->byUuid($uuid);
 
         if(!$cover) {
-            $this->response->errorNotFound();
+            abort(404);
         }
 
-        return $this->response->item($cover, new CoverTransformer());
-    }
-
-    public function showSong($id) {
-        $cover = $this->cover->find($id);
-
-        if(!$cover) {
-            $this->response->errorNotFound();
-        }
-
-        return $this->response->item($cover->song, new SongTransformer());
+        return new CoverResource($cover);
     }
 
     public function existsLike($id)

@@ -28,7 +28,8 @@ class Cover extends Model
         'song_id',
         'publisher_id',
         'type',
-        'youtube_id'
+        'youtube_id',
+        'description'
     ];
 
     /**
@@ -37,6 +38,15 @@ class Cover extends Model
      * @var string
      */
     protected $table = 'covers';
+
+    /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = [
+        'song'
+    ];
 
     /**
      * Return the likes that has the song

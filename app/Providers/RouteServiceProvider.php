@@ -52,6 +52,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::middleware('web')
+             ->domain('rekuovers.dev')
              ->namespace($this->namespace)
              ->group(base_path('routes/web.php'));
     }
@@ -65,8 +66,9 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes()
     {
-        Route::prefix('api')
-             ->middleware('api')
+        Route::middleware('api')
+             ->name('api.')
+             ->domain('api.rekuovers.dev')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
     }

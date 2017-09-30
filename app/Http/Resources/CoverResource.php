@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class Artist extends Resource
+class CoverResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -16,7 +16,17 @@ class Artist extends Resource
     {
         return [
             'id' => $this->uuid,
-            'name' => $this->name
+            'title' => $this->song->title,
+            'type' => $this->type,
+            'youtube_id' => $this->youtube_id,
+            'description' => $this->description,
+            'likes' => $this->likes->count(),
+            'created_at' => $this->created_at->toDateTimeString()
         ];
     }
 }
+
+
+
+
+

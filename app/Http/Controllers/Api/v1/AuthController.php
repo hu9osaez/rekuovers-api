@@ -4,7 +4,7 @@ use App\Events\UserSignedIn;
 use App\Events\UserSignedUp;
 use App\Http\Controllers\Api\v1\Requests\SignUpRequest;
 use App\Http\Controllers\Api\v1\Requests\SignInRequest;
-use App\Http\Resources\Authentication as AuthResource;
+use App\Http\Resources\AuthenticationResource;
 use App\Models\Authorization;
 use App\Models\User;
 use App\Transformers\UserTransformer;
@@ -35,7 +35,7 @@ class AuthController extends BaseController
 
         $authorization = new Authorization($tokens);
 
-        return new AuthResource($authorization);
+        return new AuthenticationResource($authorization);
     }
 
     public function signUp(SignUpRequest $request) {
@@ -57,7 +57,7 @@ class AuthController extends BaseController
 
         $authorization = new Authorization($tokens);
 
-        return new AuthResource($authorization);
+        return new AuthenticationResource($authorization);
     }
 
     public function authorizeFacebook(Request $request) {

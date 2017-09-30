@@ -33,6 +33,15 @@ class Song extends Model
     protected $table = 'songs';
 
     /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = [
+        'artists'
+    ];
+
+    /**
      * Return the artist(s) that owns the original song.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

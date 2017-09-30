@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class Authentication extends Resource
+class ArtistResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -15,9 +15,8 @@ class Authentication extends Resource
     public function toArray($request)
     {
         return [
-            'id' => hash('md5', $this->getToken()),
-            'token' => $this->getToken(),
-            'refresh_token' => $this->getRefreshToken()
+            'id' => $this->uuid,
+            'name' => $this->name
         ];
     }
 }

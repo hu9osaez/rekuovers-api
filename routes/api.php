@@ -13,16 +13,23 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::namespace('Api\v1')->group(function () {
+
+    Route::get('/', function () {
+        return response()->json(['status' => 'API']);
+    });
+
     Route::post('auth/signin', 'AuthController@signIn');
     Route::post('auth/signup', 'AuthController@signUp');
 
     Route::get('artists', 'ArtistController@index');
     Route::get('artists/{uuid}', 'ArtistController@show');
+
+    Route::get('songs', 'SongController@index');
+    Route::get('songs/{uuid}', 'SongController@show');
+
+    Route::get('covers', 'CoverController@index');
+    Route::get('covers/{uuid}', 'CoverController@show');
 });
 
 /*
@@ -35,12 +42,6 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\v1', 'as' => 'api:
 
     $api->post('auth/refresh', ['uses' => 'AuthController@refreshToken']);
     $api->get('auth/me', ['uses' => 'AuthController@showMe', 'middleware' => 'verify.jwt']);
-
-    $api->get('artists', 'ArtistController@index');
-    $api->get('artists/{id}', 'ArtistController@show')->name('artists:show');
-
-    $api->get('songs', 'SongController@index');
-    $api->get('songs/{id}', 'SongController@show');
 
     $api->get('covers', 'CoverController@index');
     $api->get('covers/{id}', 'CoverController@show');

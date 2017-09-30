@@ -1,0 +1,30 @@
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	root /var/www/rekuovers/public;
+	index index.php;
+	server_name rekuovers.com api.rekuovers.com;
+
+	if ($request_uri !~ ^/$|index\.php|robots\.txt|public/) {
+        return 404;
+    }
+
+	location / {
+		try_files $uri $uri/ /index.php?$query_string;
+	}
+
+	location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+
+		fastcgi_param PATH_INFO $fastcgi_path_info;
+        fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+
+		# With php7.0-cgi alone:
+		# fastcgi_pass 127.0.0.1:9000;
+
+		# With php7.0-fpm:
+		fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+	}
+}

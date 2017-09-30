@@ -15,10 +15,6 @@ use Illuminate\Http\Request;
 
 Route::namespace('Api\v1')->group(function () {
 
-    Route::get('/', function () {
-        return response()->json(['status' => 'API']);
-    });
-
     Route::post('auth/signin', 'AuthController@signIn');
     Route::post('auth/signup', 'AuthController@signUp');
 

@@ -6,6 +6,13 @@ server {
 	index index.php;
 	server_name rekuovers.com api.rekuovers.com;
 
+	access_log /var/log/nginx/rekuovers.access.log;
+    error_log  /var/log/nginx/rekuovers.error.log;
+
+	gzip             on;
+    gzip_types       text/plain text/css application/x-javascript text/xml application/xml application/xml+rss text/javascript application/json;
+    gzip_comp_level  9;
+
 	if ($request_uri !~ ^/$|index\.php|robots\.txt|public/) {
         return 404;
     }

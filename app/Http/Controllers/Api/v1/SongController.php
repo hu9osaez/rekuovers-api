@@ -2,14 +2,7 @@
 
 use App\Http\Resources\SongResource;
 use App\Models\Song;
-use App\Transformers\ArtistTransformer;
-use App\Transformers\SongTransformer;
 
-/**
- * Song resource representation.
- *
- * @Resource("Songs", uri="/songs")
- */
 class SongController extends BaseController
 {
     private $song;
@@ -19,10 +12,15 @@ class SongController extends BaseController
         $this->song = $song;
     }
 
-    public function index() {
-        $songs = $this->song->paginate();
+    public function search() {
+        $q = request()->input('q');
 
-        return SongResource::collection($songs);
+        $results = $this->song
+            ->where('title', 'like', "%{$q}%")
+            ->orWhere('slug', 'like', "%{$q}%")
+            ->get();
+
+        return SongResource::collection($results);
     }
 
     public function show($uuid) {

@@ -16,7 +16,10 @@ class ArtistResource extends Resource
     {
         return [
             'id' => $this->uuid,
-            'name' => $this->name
+            'name' => $this->name,
+            'links' => [
+                'self' => route('api.artists.show', $this->uuid)
+            ]
         ];
     }
 }

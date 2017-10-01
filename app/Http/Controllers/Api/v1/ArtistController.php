@@ -3,11 +3,6 @@
 use App\Http\Resources\ArtistResource;
 use App\Models\Artist;
 
-/**
- * ArtistResource resource representation.
- *
- * @Resource("Artists", uri="/artists")
- */
 class ArtistController extends BaseController {
 
     private $artist;
@@ -17,13 +12,15 @@ class ArtistController extends BaseController {
         $this->artist = $artist;
     }
 
-    /**
-     * @return mixed
-     */
-    public function index() {
-        $artists = $this->artist->paginate();
+    public function search() {
+        $q = request()->input('q');
 
-        return ArtistResource::collection($artists);
+        $results = $this->artist
+            ->where('name', 'like', "%{$q}%")
+            ->orWhere('slug', 'like', "%{$q}%")
+            ->get();
+
+        return ArtistResource::collection($results);
     }
 
     /**

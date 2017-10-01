@@ -18,14 +18,16 @@ Route::namespace('Api\v1')->group(function () {
     Route::post('auth/signin', 'AuthController@signIn');
     Route::post('auth/signup', 'AuthController@signUp');
 
-    Route::get('artists', 'ArtistController@index');
-    Route::get('artists/{uuid}', 'ArtistController@show');
+    Route::get('artists/search', 'ArtistController@search')->name('artists.search');
+    Route::get('artists/{uuid}', 'ArtistController@show')->name('artists.show');
 
-    Route::get('songs', 'SongController@index');
-    Route::get('songs/{uuid}', 'SongController@show');
+    Route::get('songs/search', 'SongController@search')->name('songs.search');
+    Route::get('songs/{uuid}', 'SongController@show')->name('songs.show');
 
-    Route::get('covers', 'CoverController@index');
-    Route::get('covers/{uuid}', 'CoverController@show');
+    Route::get('covers/newest', 'CoverController@newest')->name('covers.newest');
+    Route::get('covers/popular', 'CoverController@popular')->name('covers.popular');
+    Route::get('covers/search', 'CoverController@search')->name('covers.search');
+    Route::get('covers/{uuid}', 'CoverController@show')->name('covers.show');
 });
 
 /*

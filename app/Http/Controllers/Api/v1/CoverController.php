@@ -3,13 +3,8 @@
 use App\Http\Resources\CoverResource;
 use App\Models\Like;
 use App\Models\Cover;
-use App\Transformers\CoverTransformer;
+use DB;
 
-/**
- * Cover resource representation.
- *
- * @Resource("Covers", uri="/covers")
- */
 class CoverController extends BaseController
 {
     private $cover;
@@ -19,10 +14,34 @@ class CoverController extends BaseController
         $this->cover = $cover;
     }
 
-    public function index() {
-        $covers = $this->cover->orderBy('created_at', 'desc')->paginate(12);
+    public function newest() {
+        $covers = $this->cover
+            ->orderBy('created_at', 'desc')
+            ->paginate();
 
         return CoverResource::collection($covers);
+    }
+
+    public function popular() {
+        $covers = $this->cover->withCount('likes')
+            ->having('likes_count', '>=', 10)
+            ->orderBy('likes_count', 'desc')
+            ->take(100)
+            ->get();
+
+        return CoverResource::collection($covers);
+    }
+
+    public function search() {
+        $q = request()->input('q'); // @TODO: Check empty
+
+        $results = $this->cover->whereHas('song', function($query) use ($q) {
+            $query->where('title', 'like', "%{$q}%");
+            $query->orWhere('slug', 'like', "%{$q}%");
+        })
+        ->get();
+
+        return CoverResource::collection($results);
     }
 
     public function show($uuid) {

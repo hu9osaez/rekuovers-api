@@ -16,7 +16,10 @@ class SongResource extends Resource
     {
         return [
             'id' => $this->uuid,
-            'title' => $this->title
+            'title' => $this->title,
+            'links' => [
+                'self' => route('api.songs.show', $this->uuid)
+            ]
         ];
     }
 }

@@ -15,6 +15,10 @@ class SongController extends BaseController
     public function search() {
         $q = request()->input('q');
 
+        if(is_null($q)) {
+            abort(400);
+        }
+
         $results = $this->song
             ->where('title', 'like', "%{$q}%")
             ->orWhere('slug', 'like', "%{$q}%")

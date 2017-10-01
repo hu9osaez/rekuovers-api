@@ -15,6 +15,10 @@ class ArtistController extends BaseController {
     public function search() {
         $q = request()->input('q');
 
+        if(is_null($q)) {
+            abort(400);
+        }
+
         $results = $this->artist
             ->where('name', 'like', "%{$q}%")
             ->orWhere('slug', 'like', "%{$q}%")

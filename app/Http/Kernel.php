@@ -22,7 +22,6 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class Kernel extends HttpKernel
 {
-    /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
     /**
      * The application's global HTTP middleware stack.
      *

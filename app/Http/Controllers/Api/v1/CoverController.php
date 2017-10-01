@@ -3,7 +3,6 @@
 use App\Http\Resources\CoverResource;
 use App\Models\Like;
 use App\Models\Cover;
-use DB;
 
 class CoverController extends BaseController
 {
@@ -33,7 +32,11 @@ class CoverController extends BaseController
     }
 
     public function search() {
-        $q = request()->input('q'); // @TODO: Check empty
+        $q = request()->input('q');
+
+        if(is_null($q)) {
+            abort(400);
+        }
 
         $results = $this->cover->whereHas('song', function($query) use ($q) {
             $query->where('title', 'like', "%{$q}%");
@@ -54,6 +57,7 @@ class CoverController extends BaseController
         return new CoverResource($cover);
     }
 
+    /*
     public function existsLike($id)
     {
         $cover = $this->cover->find($id);
@@ -105,4 +109,5 @@ class CoverController extends BaseController
             }
         }
     }
+    */
 }

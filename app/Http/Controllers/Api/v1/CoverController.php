@@ -42,7 +42,8 @@ class CoverController extends BaseController
             $query->where('title', 'like', "%{$q}%");
             $query->orWhere('slug', 'like', "%{$q}%");
         })
-        ->get();
+        ->paginate(2)
+        ->appends(['q' => $q]);
 
         return CoverResource::collection($results);
     }

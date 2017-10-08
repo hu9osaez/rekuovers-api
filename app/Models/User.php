@@ -30,7 +30,6 @@ class User extends Authenticatable implements AuditableContract
      * @var array
      */
     protected $fillable = [
-        'uuid',
         'name',
         'username',
         'email',

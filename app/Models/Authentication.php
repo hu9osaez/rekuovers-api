@@ -1,6 +1,9 @@
 <?php namespace App\Models;
 
-class Authorization
+use App\Transformers\AuthenticationTransformer;
+use Flugg\Responder\Contracts\Transformable;
+
+class Authentication implements Transformable
 {
     /**
      * @var string
@@ -13,7 +16,7 @@ class Authorization
     protected $refreshToken;
 
     /**
-     * Authorization constructor.
+     * Authentication constructor.
      * @param array $tokens
      */
     public function __construct($tokens = [])
@@ -31,14 +34,12 @@ class Authorization
     }
 
     /**
-     * @return array
+     * Get a transformer for the class.
+     *
+     * @return \Flugg\Responder\Transformers\Transformer|string|callable
      */
-    public function toArray()
+    public function transformer()
     {
-        return [
-            'id' => hash('md5', $this->token),
-            'token' => $this->token,
-            'refresh_token' => $this->refreshToken
-        ];
+        return AuthenticationTransformer::class;
     }
 }

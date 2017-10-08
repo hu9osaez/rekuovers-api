@@ -13,10 +13,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::namespace('Api\v1')->group(function () {
+Route::group(['namespace' => 'Api\v1'], function () {
 
-    Route::post('auth/signin', 'AuthController@signIn');
+    Route::post('auth/login', 'AuthController@login');
     Route::post('auth/signup', 'AuthController@signUp');
+    Route::post('auth/refresh', 'AuthController@refreshToken');
+
+    Route::post('oauth/facebook', 'OAuthController@facebook');
 
     Route::get('artists/search', 'ArtistController@search')->name('artists.search');
     Route::get('artists/{uuid}', 'ArtistController@show')->name('artists.show');
@@ -34,7 +37,6 @@ Route::namespace('Api\v1')->group(function () {
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\v1', 'as' => 'api:'], function ($api) {
-    $api->get('auth/facebook', 'AuthController@authorizeFacebook');
 
     $api->post('auth/refresh', ['uses' => 'AuthController@refreshToken']);
     $api->get('auth/me', ['uses' => 'AuthController@showMe', 'middleware' => 'verify.jwt']);

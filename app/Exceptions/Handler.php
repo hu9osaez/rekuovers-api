@@ -48,6 +48,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if(str_is($request->getHost(), config('rekuovers.domain.api'))) {
+            $request->headers->set('Accept', 'application/json', true);
+        }
+
         return parent::render($request, $exception);
     }
 }

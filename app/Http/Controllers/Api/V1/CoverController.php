@@ -1,6 +1,5 @@
 <?php namespace App\Http\Controllers\Api\V1;
 
-use App\Models\Like;
 use App\Models\Cover;
 
 class CoverController extends BaseController
@@ -55,58 +54,4 @@ class CoverController extends BaseController
 
         return responder()->success($cover)->respond();
     }
-
-    /*
-    public function existsLike($id)
-    {
-        $cover = $this->cover->find($id);
-
-        if(!$cover) {
-            $this->response->errorNotFound();
-        }
-
-        if(Like::where([
-            ['user_id', '=', app('auth')->id()],
-            ['cover_id', '=', $id]
-        ])->exists()) {
-            return $this->response->array([
-                'message' => 'Like exists.'
-            ]);
-        }
-
-        $this->response->errorNotFound();
-    }
-
-    public function storeLike($id) {
-        $like = Like::withTrashed()->where([
-            ['user_id', '=', app('auth')->id()],
-            ['cover_id', '=', $id]
-        ])->first();
-
-        if (is_null($like)) {
-            Like::create([
-                'user_id' => app('auth')->id(),
-                'song_id' => $id
-            ]);
-
-            return $this->response
-                ->array(['message' => 'Like created successfully.'])
-                ->setStatusCode(201);
-        }
-        else {
-            if (is_null($like->deleted_at)) {
-                $like->delete();
-
-                return $this->response->noContent();
-            }
-            else {
-                $like->restore();
-
-                return $this->response
-                    ->array(['message' => 'Like created successfully.'])
-                    ->setStatusCode(201);
-            }
-        }
-    }
-    */
 }

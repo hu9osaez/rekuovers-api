@@ -1,7 +1,4 @@
 <?php
-
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -32,15 +29,7 @@ Route::group(['namespace' => 'Api\V1'], function () {
     Route::get('covers/popular', 'CoverController@popular')->name('covers.popular');
     Route::get('covers/search', 'CoverController@search')->name('covers.search');
     Route::get('covers/{uuid}', 'CoverController@show')->name('covers.show');
+
+    Route::get('covers/{uuid}/likes/exists', 'LikeController@exists')->middleware('auth:api');
+    Route::post('covers/{uuid}/likes', 'LikeController@store')->middleware('auth:api');
 });
-
-/*
-$api = app('Dingo\Api\Routing\Router');
-
-$api->version('V1', ['namespace' => 'App\Http\Controllers\Api\V1', 'as' => 'api:'], function ($api) {
-
-    //$api->get('songs/{id}/likes/exists', ['uses' => 'CoverController@existsLike', 'middleware' => 'auth']);
-    //$api->post('songs/{id}/likes', ['uses' => 'CoverController@storeLike', 'middleware' => 'auth']);
-
-});
-*/

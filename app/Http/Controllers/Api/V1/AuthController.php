@@ -18,9 +18,7 @@ class AuthController extends BaseController
             'password' => $request->password
         ];
 
-        if(!auth()->attempt($credentials)) {
-            return responder()->error()->respond(401);
-        }
+        throw_unless(auth()->attempt($credentials), \Illuminate\Auth\AuthenticationException::class);
 
         event(new UserLoggedIn(auth()->id()));
 
@@ -39,9 +37,7 @@ class AuthController extends BaseController
         $user->email = $request->email;
         $user->password = $request->password;
 
-        if(!$user->save()) {
-            return responder()->error()->respond(401);
-        }
+        throw_unless($user->save(), \Illuminate\Auth\AuthenticationException::class);
 
         event(new UserSignedUp($user->id));
         event(new UserLoggedIn($user->id));

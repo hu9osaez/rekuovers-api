@@ -1,13 +1,15 @@
 <?php namespace App\Models;
 
 use App\Models\Traits\Uuids;
+use App\Transformers\UserTransformer;
+use Flugg\Responder\Contracts\Transformable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class User extends Authenticatable implements AuditableContract
+class User extends Authenticatable implements AuditableContract, Transformable
 {
     use Auditable, Notifiable, SoftDeletes, Uuids;
 
@@ -21,7 +23,8 @@ class User extends Authenticatable implements AuditableContract
         'name'        => 'string',
         'username'    => 'string',
         'email'       => 'string',
-        'facebook_id' => 'string'
+        'facebook_id' => 'string',
+        'api_token'   => 'string'
     ];
 
     /**
@@ -44,7 +47,12 @@ class User extends Authenticatable implements AuditableContract
     protected $hidden = [
         'password',
         'facebook_id',
-        'updated_at'
+        'confirmation_code',
+        'last_signin_ip',
+        'api_token',
+        'remember_token',
+        'updated_at',
+        'deleted_at'
     ];
 
     /**
@@ -95,10 +103,20 @@ class User extends Authenticatable implements AuditableContract
         }
 
         // Ensure email does not exist
-        elseif (static::whereEmail($email)->count() > 0) {
+        elseif (static::where('email', $email)->count() > 0) {
             throw new \Exception("Email already exists.");
         }
 
         $this->attributes['email'] = $email;
+    }
+
+    /**
+     * Get a transformer for the class.
+     *
+     * @return \Flugg\Responder\Transformers\Transformer|callable|string|null
+     */
+    public function transformer()
+    {
+        return UserTransformer::class;
     }
 }

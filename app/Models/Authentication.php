@@ -8,29 +8,19 @@ class Authentication implements Transformable
     /**
      * @var string
      */
-    protected $token;
-
-    /**
-     * @var string
-     */
-    protected $refreshToken;
+    protected $apiToken;
 
     /**
      * Authentication constructor.
      * @param array $tokens
      */
-    public function __construct($tokens = [])
+    public function __construct($api_token)
     {
-        $this->token = $tokens['api_token'];
-        $this->refreshToken = $tokens['refresh_token'];
+        $this->apiToken = $api_token;
     }
 
-    public function getToken() {
-        return $this->token;
-    }
-
-    public function getRefreshToken() {
-        return $this->refreshToken;
+    public function getApiToken() {
+        return $this->apiToken;
     }
 
     /**

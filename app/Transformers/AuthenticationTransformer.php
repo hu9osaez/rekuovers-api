@@ -16,8 +16,9 @@ class AuthenticationTransformer extends Transformer
     public function transform(Authentication $authentication)
     {
         return [
-            'token' => $authentication->getToken(),
-            'refresh_token' => $authentication->getRefreshToken()
+            'id' => md5($authentication->getApiToken()),
+            'api_token' => $authentication->getApiToken(),
+            'generated_at' => now()->timestamp
         ];
     }
 }

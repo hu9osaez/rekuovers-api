@@ -167,7 +167,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Paulvl\JWTGuard\Auth\AuthServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -1,6 +1,7 @@
-<?php namespace App\Http\Controllers\Api\v1;
+<?php namespace App\Http\Controllers\Api\V1;
 
-use App\Events\UserSignedIn;
+use App\Events\UserLoggedIn;
+use App\Events\UserSignedUp;
 use App\Models\Authentication;
 use App\Models\User;
 use Socialite;
@@ -21,11 +22,11 @@ class OAuthController extends BaseController
 
         // Si <facebook_id> existe, retornar el usuario encontrado
         if($user = User::where('facebook_id', $facebookUser->id)->first()) {
-            event(new UserSignedIn($user->id));
+            event(new UserLoggedIn($user->id));
 
-            $tokens = auth('jwt')->issueToken($user);
+            $user->refresh();
 
-            $authentication = new Authentication($tokens);
+            $authentication = new Authentication($user->api_token);
 
             return responder()->success($authentication)->respond();
         }
@@ -42,12 +43,12 @@ class OAuthController extends BaseController
 
                 $newUser->save();
 
-                //event(new UserSignedUp($newUser->id));
-                event(new UserSignedIn($newUser->id));
+                event(new UserSignedUp($newUser->id));
+                event(new UserLoggedIn($newUser->id));
 
-                $tokens = auth('jwt')->issueToken($newUser);
+                $newUser->refresh();
 
-                $authentication = new Authentication($tokens);
+                $authentication = new Authentication($newUser->api_token);
 
                 return responder()->success($authentication)->respond();
             }
@@ -57,11 +58,11 @@ class OAuthController extends BaseController
                 $user->facebook_id = $facebookUser->id;
                 $user->save();
 
-                event(new UserSignedIn($user->id));
+                event(new UserLoggedIn($user->id));
 
-                $tokens = auth('jwt')->issueToken($user);
+                $user->refresh();
 
-                $authentication = new Authentication($tokens);
+                $authentication = new Authentication($user->api_token);
 
                 return responder()->success($authentication)->respond();
             }
@@ -70,11 +71,11 @@ class OAuthController extends BaseController
             {
                 $user = User::where('email', $facebookUser->email)->where('facebook_id', $facebookUser->id)->first();
 
-                event(new UserSignedIn($user->id));
+                event(new UserLoggedIn($user->id));
 
-                $tokens = auth('jwt')->issueToken($user);
+                $user->refresh();
 
-                $authentication = new Authentication($tokens);
+                $authentication = new Authentication($user->api_token);
 
                 return responder()->success($authentication)->respond();
             }

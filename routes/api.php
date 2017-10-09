@@ -13,13 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['namespace' => 'Api\v1'], function () {
+Route::group(['namespace' => 'Api\V1'], function () {
 
     Route::post('auth/login', 'AuthController@login');
     Route::post('auth/signup', 'AuthController@signUp');
-    Route::post('auth/refresh', 'AuthController@refreshToken');
 
     Route::post('oauth/facebook', 'OAuthController@facebook');
+
+    Route::get('me', 'AuthController@me')->middleware('auth:api');
 
     Route::get('artists/search', 'ArtistController@search')->name('artists.search');
     Route::get('artists/{uuid}', 'ArtistController@show')->name('artists.show');
@@ -36,14 +37,10 @@ Route::group(['namespace' => 'Api\v1'], function () {
 /*
 $api = app('Dingo\Api\Routing\Router');
 
-$api->version('v1', ['namespace' => 'App\Http\Controllers\Api\v1', 'as' => 'api:'], function ($api) {
-
-    $api->post('auth/refresh', ['uses' => 'AuthController@refreshToken']);
-    $api->get('auth/me', ['uses' => 'AuthController@showMe', 'middleware' => 'verify.jwt']);
+$api->version('V1', ['namespace' => 'App\Http\Controllers\Api\V1', 'as' => 'api:'], function ($api) {
 
     //$api->get('songs/{id}/likes/exists', ['uses' => 'CoverController@existsLike', 'middleware' => 'auth']);
     //$api->post('songs/{id}/likes', ['uses' => 'CoverController@storeLike', 'middleware' => 'auth']);
 
-    $api->get('users/{username}', 'UserController@show');
 });
 */

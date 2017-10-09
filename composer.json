@@ -14,7 +14,6 @@
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "owen-it/laravel-auditing": "^4.1",
-        "paulvl/jwt-guard": "1.*",
         "ramsey/uuid": "^3.7",
         "rap2hpoutre/laravel-log-viewer": "^0.10.4"
     },

@@ -25,6 +25,7 @@ class CreateTableUsers extends Migration
             $table->string('facebook_id')->nullable()->unique();
             $table->timestamp('last_signin')->nullable();
             $table->ipAddress('last_signin_ip')->nullable();
+            $table->string('api_token', 80)->nullable()->unique();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\Api\v1;
+<?php namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Resources\ArtistResource;
 use App\Models\Artist;

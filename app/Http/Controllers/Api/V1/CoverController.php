@@ -1,6 +1,5 @@
 <?php namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Resources\CoverResource;
 use App\Models\Like;
 use App\Models\Cover;
 
@@ -18,7 +17,7 @@ class CoverController extends BaseController
             ->orderBy('created_at', 'desc')
             ->paginate();
 
-        return CoverResource::collection($covers);
+        return responder()->success($covers)->respond();
     }
 
     public function popular() {
@@ -28,34 +27,33 @@ class CoverController extends BaseController
             ->take(100)
             ->get();
 
-        return CoverResource::collection($covers);
+        return responder()->success($covers)->respond();
     }
 
     public function search() {
         $q = request()->input('q');
 
         if(is_null($q)) {
-            abort(400);
+            return responder()->error()->respond(400);
         }
 
-        $results = $this->cover->whereHas('song', function($query) use ($q) {
+        $result = $this->cover->whereHas('song', function($query) use ($q) {
             $query->where('title', 'like', "%{$q}%");
             $query->orWhere('slug', 'like', "%{$q}%");
         })
-        ->paginate(2)
-        ->appends(['q' => $q]);
+        ->paginate();
 
-        return CoverResource::collection($results);
+        return responder()->success($result)->respond();
     }
 
     public function show($uuid) {
         $cover = $this->cover->byUuid($uuid);
 
         if(!$cover) {
-            abort(404);
+            return responder()->error()->respond(404);
         }
 
-        return new CoverResource($cover);
+        return responder()->success($cover)->respond();
     }
 
     /*

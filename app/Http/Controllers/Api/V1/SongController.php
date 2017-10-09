@@ -1,6 +1,5 @@
 <?php namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Resources\SongResource;
 use App\Models\Song;
 
 class SongController extends BaseController
@@ -16,24 +15,24 @@ class SongController extends BaseController
         $q = request()->input('q');
 
         if(is_null($q)) {
-            abort(400);
+            return responder()->error()->respond(400);
         }
 
-        $results = $this->song
+        $result = $this->song
             ->where('title', 'like', "%{$q}%")
             ->orWhere('slug', 'like', "%{$q}%")
-            ->get();
+            ->paginate();
 
-        return SongResource::collection($results);
+        return responder()->success($result)->respond();
     }
 
     public function show($uuid) {
         $song = $this->song->byUuid($uuid);
 
         if(!$song) {
-            abort(404);
+            return responder()->error()->respond(404);
         }
 
-        return new SongResource($song);
+        return responder()->success($song)->respond();
     }
 }

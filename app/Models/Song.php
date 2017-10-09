@@ -1,11 +1,13 @@
 <?php namespace App\Models;
 
 use App\Models\Traits\Uuids;
+use App\Transformers\SongTransformer;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
+use Flugg\Responder\Contracts\Transformable;
 use Illuminate\Database\Eloquent\Model;
 
-class Song extends Model
+class Song extends Model implements Transformable
 {
     use Sluggable, SluggableScopeHelpers, Uuids;
 
@@ -65,5 +67,15 @@ class Song extends Model
                 'source' => 'title'
             ]
         ];
+    }
+
+    /**
+     * Get a transformer for the class.
+     *
+     * @return \Flugg\Responder\Transformers\Transformer|callable|string|null
+     */
+    public function transformer()
+    {
+        return SongTransformer::class;
     }
 }

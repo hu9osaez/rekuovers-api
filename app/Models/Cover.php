@@ -1,9 +1,11 @@
 <?php namespace App\Models;
 
 use App\Models\Traits\Uuids;
+use App\Transformers\CoverTransformer;
+use Flugg\Responder\Contracts\Transformable;
 use Illuminate\Database\Eloquent\Model;
 
-class Cover extends Model
+class Cover extends Model implements Transformable
 {
     use Uuids;
 
@@ -76,5 +78,15 @@ class Cover extends Model
     public function song()
     {
         return $this->belongsTo(Song::class, 'song_id', 'id');
+    }
+
+    /**
+     * Get a transformer for the class.
+     *
+     * @return \Flugg\Responder\Transformers\Transformer|callable|string|null
+     */
+    public function transformer()
+    {
+        return CoverTransformer::class;
     }
 }

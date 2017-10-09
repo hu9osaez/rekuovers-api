@@ -1,6 +1,5 @@
 <?php namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Resources\ArtistResource;
 use App\Models\Artist;
 
 class ArtistController extends BaseController {
@@ -12,32 +11,35 @@ class ArtistController extends BaseController {
         $this->artist = $artist;
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function search() {
         $q = request()->input('q');
 
         if(is_null($q)) {
-            abort(400);
+            return responder()->error()->respond(400);
         }
 
-        $results = $this->artist
+        $result = $this->artist
             ->where('name', 'like', "%{$q}%")
             ->orWhere('slug', 'like', "%{$q}%")
-            ->get();
+            ->paginate();
 
-        return ArtistResource::collection($results);
+        return responder()->success($result)->respond();
     }
 
     /**
      * @param $uuid
-     * @return ArtistResource
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($uuid) {
         $artist = $this->artist->byUuid($uuid);
 
         if(!$artist) {
-            abort(404);
+            return responder()->error()->respond(404);
         }
 
-        return new ArtistResource($artist);
+        return responder()->success($artist)->respond();
     }
 }

@@ -56,6 +56,16 @@ class Song extends Model implements Transformable
     }
 
     /**
+     * Return the covers that has the song.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function covers()
+    {
+        return $this->hasMany(Cover::class, 'song_id', 'id');
+    }
+
+    /**
      * Return the sluggable configuration array for this model.
      *
      * @return array

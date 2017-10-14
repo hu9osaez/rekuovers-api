@@ -16,8 +16,9 @@ class SongTransformer extends Transformer
     public function transform(Song $song)
     {
         return [
-            'id'    => $song->uuid,
-            'title' => $song->title,
+            'id'     => $song->uuid,
+            'title'  => $song->title,
+            'covers' => (int)$song->covers->count(),
             'links' => [
                 'self' => route('api.songs.show', $song->uuid)
             ]

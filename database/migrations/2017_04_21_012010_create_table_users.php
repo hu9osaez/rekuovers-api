@@ -18,6 +18,7 @@ class CreateTableUsers extends Migration
             $table->uuid('uuid')->unique()->index();
             $table->string('name', 50);
             $table->string('username', 32)->unique();
+            $table->text('bio')->nullable();
             $table->string('email')->unique();
             $table->string('password', 60)->nullable();
             $table->boolean('confirmed')->default(false);

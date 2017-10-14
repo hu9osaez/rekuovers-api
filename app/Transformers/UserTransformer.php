@@ -19,6 +19,7 @@ class UserTransformer extends Transformer
             'id'       => $user->uuid,
             'name'     => $user->name,
             'username' => $user->username,
+            'bio'      => $user->bio,
             'likes'    => $user->likes->count(),
             'covers'   => $user->covers->count()
         ];

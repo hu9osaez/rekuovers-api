@@ -18,6 +18,7 @@ class SongTransformer extends Transformer
         return [
             'id'     => $song->uuid,
             'title'  => $song->title,
+            'artist' => $song->artists()->select(['uuid', 'name'])->get()->pluck('name'),
             'covers' => (int)$song->covers->count(),
             'links' => [
                 'self' => route('api.songs.show', $song->uuid)

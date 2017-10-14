@@ -18,6 +18,7 @@ class CoverTransformer extends Transformer
         return [
             'id'          => $cover->uuid,
             'title'       => $cover->song->title,
+            'artist'      => $cover->song->artists()->select(['uuid', 'name'])->get()->pluck('name'),
             'type'        => $cover->type,
             'youtube_id'  => $cover->youtube_id,
             'description' => $cover->description,

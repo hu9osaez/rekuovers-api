@@ -1,6 +1,4 @@
-<?php
-
-namespace App\Transformers;
+<?php namespace App\Transformers;
 
 use App\Models\Cover;
 use Flugg\Responder\Transformers\Transformer;
@@ -15,11 +13,14 @@ class CoverTransformer extends Transformer
      */
     public function transform(Cover $cover)
     {
+        $artists = $cover->song->artists()
+            ->get(['slug', 'name'])
+            ->toArray();
+
         return [
             'id'          => $cover->uuid,
             'title'       => $cover->song->title,
-            'artist'      => $cover->song->artists()->select(['uuid', 'name'])->get()->pluck('name'),
-            'type'        => $cover->type,
+            'artists'     => $artists,
             'youtube_id'  => $cover->youtube_id,
             'description' => $cover->description,
             'likes'       => $cover->likes->count(),

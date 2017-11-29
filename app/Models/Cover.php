@@ -2,12 +2,13 @@
 
 use App\Models\Traits\Uuids;
 use App\Transformers\CoverTransformer;
+use Cviebrock\EloquentTaggable\Taggable;
 use Flugg\Responder\Contracts\Transformable;
 use Illuminate\Database\Eloquent\Model;
 
 class Cover extends Model implements Transformable
 {
-    use Uuids;
+    use Taggable, Uuids;
 
     /**
      * The attributes that should be casted to native types.
@@ -17,7 +18,6 @@ class Cover extends Model implements Transformable
     protected $casts = [
         'song_id' => 'integer',
         'publisher_id' => 'integer',
-        'type' => 'string',
         'youtube_id' => 'string'
     ];
 
@@ -29,7 +29,6 @@ class Cover extends Model implements Transformable
     protected $fillable = [
         'song_id',
         'publisher_id',
-        'type',
         'youtube_id',
         'description'
     ];

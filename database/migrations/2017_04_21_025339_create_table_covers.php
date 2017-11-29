@@ -18,7 +18,6 @@ class CreateTableCovers extends Migration
             $table->uuid('uuid')->unique()->index();
             $table->bigInteger('song_id')->unsigned();
             $table->bigInteger('publisher_id')->unsigned()->default(1);
-            $table->string('type', 5);
             $table->string('youtube_id');
             $table->text('description')->nullable();
             $table->timestamps();

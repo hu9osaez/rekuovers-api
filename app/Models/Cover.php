@@ -17,7 +17,6 @@ class Cover extends Model implements Transformable
     protected $casts = [
         'song_id' => 'integer',
         'publisher_id' => 'integer',
-        'type' => 'string',
         'youtube_id' => 'string'
     ];
 
@@ -29,7 +28,6 @@ class Cover extends Model implements Transformable
     protected $fillable = [
         'song_id',
         'publisher_id',
-        'type',
         'youtube_id',
         'description'
     ];

@@ -51,9 +51,7 @@ class CoversTableSeeder extends Seeder
             $nCover->youtube_id = $cover['youtube_id'];
             $nCover->save();
 
-            /*foreach ($cover['tags'] as $tag) {
-                $nCover->attachTag($tag);
-            }*/
+            $nCover->tag($cover['tags']);
         }
     }
 }

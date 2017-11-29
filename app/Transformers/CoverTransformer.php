@@ -15,7 +15,6 @@ class CoverTransformer extends Transformer
     {
         $artists = $cover->song->artists()
             ->get(['slug', 'name'])
-            ->pluck('name', 'slug')
             ->toArray();
 
         return [

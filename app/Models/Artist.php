@@ -29,6 +29,10 @@ class Artist extends Model implements Transformable
         'name'
     ];
 
+    protected $hidden = [
+        'pivot'
+    ];
+
     /**
      * The table associated with the model.
      *

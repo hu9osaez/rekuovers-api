@@ -2,12 +2,13 @@
 
 use App\Models\Traits\Uuids;
 use App\Transformers\CoverTransformer;
+use Cviebrock\EloquentTaggable\Taggable;
 use Flugg\Responder\Contracts\Transformable;
 use Illuminate\Database\Eloquent\Model;
 
 class Cover extends Model implements Transformable
 {
-    use Uuids;
+    use Taggable, Uuids;
 
     /**
      * The attributes that should be casted to native types.

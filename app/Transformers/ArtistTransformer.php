@@ -18,9 +18,7 @@ class ArtistTransformer extends Transformer
         return [
             'id'    => $artist->uuid,
             'name'  => $artist->name,
-            'links' => [
-                'self' => route('api.artists.show', $artist->uuid)
-            ]
+            'slug'  => $artist->slug,
         ];
     }
 }

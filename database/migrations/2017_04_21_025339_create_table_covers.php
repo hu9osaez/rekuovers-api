@@ -23,6 +23,8 @@ class CreateTableCovers extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->index('uuid');
+
             $table->foreign('song_id')->references('id')->on('songs');
             $table->foreign('publisher_id')->references('id')->on('users');
         });

@@ -12,7 +12,7 @@ class Authentication implements Transformable
 
     /**
      * Authentication constructor.
-     * @param array $tokens
+     * @param string $api_token
      */
     public function __construct($api_token)
     {

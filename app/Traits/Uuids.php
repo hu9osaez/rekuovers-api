@@ -1,4 +1,4 @@
-<?php namespace App\Models\Traits;
+<?php namespace App\Traits;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Ramsey\Uuid\Uuid;
@@ -28,8 +28,9 @@ trait Uuids
     }
 
     /**
-     * Scope  by uuid
-     * @param  string  uuid of the model.
+     * Scope By UUID
+     * @param \Illuminate\Database\Query\Builder $query
+     * @param string $uuid
      *
      * @return mixed
      */

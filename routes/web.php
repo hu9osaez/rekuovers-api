@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return response()->json(['status' => 'Soon!']);
 });
+
+Route::get('/clear-cache', function() {
+    $exitCode = \Artisan::call('cache:clear');
+});

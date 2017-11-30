@@ -50,7 +50,7 @@ class LikeController extends BaseController
                 'cover_id' => $cover->id
             ]);
 
-            return responder()->success(['mensaje' => 'Like created successfully.'])->respond(201);
+            return responder()->success(['message' => 'Like created successfully.'])->respond(201);
         }
         else {
             if (is_null($like->deleted_at)) {
@@ -61,7 +61,7 @@ class LikeController extends BaseController
             else {
                 $like->restore();
 
-                return responder()->success(['mensaje' => 'Like created successfully.'])->respond(201);
+                return responder()->success(['message' => 'Like created successfully.'])->respond(201);
             }
         }
     }

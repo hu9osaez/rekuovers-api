@@ -19,11 +19,11 @@ Route::group(['namespace' => 'Api\V1'], function () {
 
     Route::get('me', 'AuthController@me')->middleware('auth:api');
 
-    Route::get('artists/search', 'ArtistController@search')->name('artists.search');
-    Route::get('artists/{uuid}', 'ArtistController@show')->name('artists.show');
+    //Route::get('artists/search', 'ArtistController@search')->name('artists.search');
+    //Route::get('artists/{uuid}', 'ArtistController@show')->name('artists.show');
 
-    Route::get('songs/search', 'SongController@search')->name('songs.search');
-    Route::get('songs/{uuid}', 'SongController@show')->name('songs.show');
+    //Route::get('songs/search', 'SongController@search')->name('songs.search');
+    //Route::get('songs/{uuid}', 'SongController@show')->name('songs.show');
 
     Route::get('covers/newest', 'CoverController@newest')->name('covers.newest');
     Route::get('covers/popular', 'CoverController@popular')->name('covers.popular');

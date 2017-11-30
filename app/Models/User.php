@@ -1,6 +1,6 @@
 <?php namespace App\Models;
 
-use App\Models\Traits\Uuids;
+use App\Traits\Uuids;
 use App\Transformers\UserTransformer;
 use Flugg\Responder\Contracts\Transformable;
 use Illuminate\Database\Eloquent\SoftDeletes;

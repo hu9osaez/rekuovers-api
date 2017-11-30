@@ -1,6 +1,6 @@
 <?php namespace App\Models;
 
-use App\Models\Traits\Uuids;
+use App\Traits\Uuids;
 use App\Transformers\CoverTransformer;
 use Cviebrock\EloquentTaggable\Taggable;
 use Flugg\Responder\Contracts\Transformable;
@@ -46,7 +46,7 @@ class Cover extends Model implements Transformable
      * @var array
      */
     protected $with = [
-        'song'
+        'likes'
     ];
 
     /**

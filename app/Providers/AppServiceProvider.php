@@ -1,6 +1,4 @@
-<?php
-
-namespace App\Providers;
+<?php namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -25,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
     {
         if ($this->app->environment() !== 'production') {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+            $this->app->register(\Clockwork\Support\Laravel\ClockworkServiceProvider::class);
         }
     }
 }

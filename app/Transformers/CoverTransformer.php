@@ -31,7 +31,7 @@ class CoverTransformer extends Transformer
                 'slug' => $t->normalized,
                 'name' => $t->name
             ];
-        })->toArray();;
+        })->toArray();
 
         return [
             'id'          => $cover->uuid,

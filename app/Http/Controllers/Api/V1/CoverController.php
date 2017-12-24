@@ -13,7 +13,7 @@ class CoverController extends BaseController
 
     public function newest() {
         $covers = $this->cover
-            ->orderBy('created_at', 'desc')
+            ->latest()
             ->paginate();
 
         return responder()->success($covers)->respond();
@@ -23,7 +23,7 @@ class CoverController extends BaseController
         $covers = $this->cover->withCount('likes')
             ->having('likes_count', '>=', 10)
             ->orderBy('likes_count', 'desc')
-            ->take(100)
+            ->take(7)
             ->get();
 
         return responder()->success($covers)->respond();

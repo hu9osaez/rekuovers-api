@@ -11,7 +11,7 @@ trait CachableSong
     protected function getSongById($id)
     {
         return cache()->remember('song.id.'.$id, config('rekuovers.expire_cache_song'), function () use ($id) {
-            return Song::findOrFail($id);
+            return Song::find($id);
         });
     }
 }

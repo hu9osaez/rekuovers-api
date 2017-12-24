@@ -16,7 +16,7 @@ class CreateTableCovers extends Migration
         Schema::create('covers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('uuid')->unique()->index();
-            $table->bigInteger('song_id')->unsigned();
+            $table->bigInteger('song_id')->unsigned()->nullable();
             $table->bigInteger('publisher_id')->unsigned()->default(1);
             $table->string('youtube_id');
             $table->text('description')->nullable();
@@ -24,6 +24,7 @@ class CreateTableCovers extends Migration
             $table->softDeletes();
 
             $table->index('uuid');
+            $table->index('youtube_id');
 
             $table->foreign('song_id')->references('id')->on('songs');
             $table->foreign('publisher_id')->references('id')->on('users');

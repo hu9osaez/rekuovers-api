@@ -1,5 +1,6 @@
 <?php namespace App\Models;
 
+use App\Traits\HandleArtists;
 use App\Traits\Uuids;
 use App\Transformers\SongTransformer;
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class Song extends Model implements Transformable
 {
     use Sluggable, SluggableScopeHelpers, Uuids;
+    use HandleArtists;
 
     /**
      * The attributes that should be casted to native types.

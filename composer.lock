@@ -2549,16 +2549,16 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v3.3.13",
+            "version": "v3.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "66e6e046032ebdf1f562c26928549f613d428bd1"
+                "reference": "eac760b414cf1f64362c3dd047b989e4db121332"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/66e6e046032ebdf1f562c26928549f613d428bd1",
-                "reference": "66e6e046032ebdf1f562c26928549f613d428bd1",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/eac760b414cf1f64362c3dd047b989e4db121332",
+                "reference": "eac760b414cf1f64362c3dd047b989e4db121332",
                 "shasum": ""
             },
             "require": {
@@ -2567,7 +2567,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.3-dev"
+                    "dev-master": "3.4-dev"
                 }
             },
             "autoload": {
@@ -2598,7 +2598,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-05T15:47:03+00:00"
+            "time": "2017-12-14T19:40:10+00:00"
         },
         {
             "name": "symfony/debug",
@@ -3095,16 +3095,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v3.3.13",
+            "version": "v3.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "373e553477e55cd08f8b86b74db766c75b987fdb"
+                "reference": "4c5d5582baf2829751a5207659329c1f52eedeb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/373e553477e55cd08f8b86b74db766c75b987fdb",
-                "reference": "373e553477e55cd08f8b86b74db766c75b987fdb",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/4c5d5582baf2829751a5207659329c1f52eedeb6",
+                "reference": "4c5d5582baf2829751a5207659329c1f52eedeb6",
                 "shasum": ""
             },
             "require": {
@@ -3113,13 +3113,16 @@
             },
             "conflict": {
                 "symfony/config": "<2.8",
-                "symfony/yaml": "<3.3"
+                "symfony/dependency-injection": "<3.4",
+                "symfony/yaml": "<3.4"
             },
             "require-dev": {
                 "psr/log": "~1.0",
-                "symfony/config": "~2.8|~3.0",
-                "symfony/intl": "^2.8.18|^3.2.5",
-                "symfony/yaml": "~3.3"
+                "symfony/config": "~2.8|~3.0|~4.0",
+                "symfony/dependency-injection": "~3.4|~4.0",
+                "symfony/finder": "~2.8|~3.0|~4.0",
+                "symfony/intl": "^2.8.18|^3.2.5|~4.0",
+                "symfony/yaml": "~3.4|~4.0"
             },
             "suggest": {
                 "psr/log": "To use logging capability in translator",
@@ -3129,7 +3132,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.3-dev"
+                    "dev-master": "3.4-dev"
                 }
             },
             "autoload": {
@@ -3156,7 +3159,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-07T14:12:55+00:00"
+            "time": "2017-12-12T08:27:14+00:00"
         },
         {
             "name": "symfony/var-dumper",

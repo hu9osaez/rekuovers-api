@@ -29,6 +29,12 @@ class CoverController extends BaseController
         return responder()->success($covers)->respond();
     }
 
+    public function random() {
+        $cover = $this->cover->inRandomOrder()->first();
+
+        return responder()->success($cover)->respond();
+    }
+
     public function search() {
         $q = request()->input('q');
 

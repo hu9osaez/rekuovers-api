@@ -27,6 +27,7 @@ Route::group(['namespace' => 'Api\V1'], function () {
 
     Route::get('covers/newest', 'CoverController@newest')->name('covers.newest');
     Route::get('covers/popular', 'CoverController@popular')->name('covers.popular');
+    Route::get('covers/random', 'CoverController@random')->name('covers.random');
     Route::get('covers/search', 'CoverController@search')->name('covers.search');
     Route::get('covers/{uuid}', 'CoverController@show')->name('covers.show');
 

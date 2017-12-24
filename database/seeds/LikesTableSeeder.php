@@ -14,7 +14,7 @@ class LikesTableSeeder extends Seeder
     {
         for ($i=0; $i < 100; $i++) {
             Like::create([
-                'cover_id' => rand(1, 4),
+                'cover_id' => rand(1, 9),
                 'user_id' => rand(1, 4)
             ]);
         }

@@ -52,7 +52,7 @@ class AuthController extends BaseController
 
         throw_unless($issuedToken = \JWTAuth::fromUser($rUser), \Illuminate\Auth\AuthenticationException::class);
 
-        event(new UserSignedUp($user->id));
+        event(new UserSignedUp($rUser->id));
         event(new UserLoggedIn($rUser->id));
 
         $mToken = new Token();

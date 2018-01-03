@@ -69,7 +69,9 @@ class OAuthController extends BaseController
             // Usuario(email) existe y SI tiene facebook_id ===> devolver token
             else
             {
-                $user = User::where('email', $facebookUser->email)->where('facebook_id', $facebookUser->id)->first();
+                $user = User::where('email', $facebookUser->email)
+                    ->where('facebook_id', $facebookUser->id)
+                    ->first();
 
                 event(new UserLoggedIn($user->id));
 

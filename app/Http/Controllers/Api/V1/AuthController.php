@@ -4,12 +4,17 @@ use App\Events\UserLoggedIn;
 use App\Events\UserSignedUp;
 use App\Http\Requests\Api\V1\LoginRequest;
 use App\Http\Requests\Api\V1\SignUpRequest;
-use App\Models\Authentication;
+use App\Models\Token;
 use App\Models\User;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class AuthController extends BaseController
 {
-
+    /**
+     * @param LoginRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
     public function login(LoginRequest $request) {
         $loginField = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
@@ -18,15 +23,14 @@ class AuthController extends BaseController
             'password' => $request->password
         ];
 
-        throw_unless(auth()->attempt($credentials), \Illuminate\Auth\AuthenticationException::class);
+        throw_unless($issuedToken = auth()->attempt($credentials), AuthorizationException::class);
 
         event(new UserLoggedIn(auth()->id()));
 
-        auth()->user()->refresh();
+        $mToken = new Token();
+        $mToken->token = $issuedToken;
 
-        $authentication = new Authentication(auth()->user()->api_token);
-
-        return responder()->success($authentication)->respond();
+        return responder()->success($mToken)->toArray();
     }
 
     public function signUp(SignUpRequest $request) {

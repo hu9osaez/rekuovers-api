@@ -15,7 +15,7 @@ Route::group(['namespace' => 'Api\V1'], function () {
     Route::post('auth/login', 'AuthController@login');
     Route::post('auth/signup', 'AuthController@signUp');
 
-    Route::post('oauth/facebook', 'OAuthController@facebook');
+    Route::post('auth/facebook', 'OAuthController@facebook');
 
     Route::get('me', 'AuthController@me')->middleware('auth:api');
 

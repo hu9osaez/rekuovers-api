@@ -34,6 +34,7 @@ class Kernel extends HttpKernel
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
         TrustProxies::class,
+        \Spatie\Cors\Cors::class,
     ];
 
     /**

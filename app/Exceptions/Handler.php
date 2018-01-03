@@ -1,12 +1,15 @@
-<?php
-
-namespace App\Exceptions;
+<?php namespace App\Exceptions;
 
 use Exception;
-use Flugg\Responder\Exceptions\Handler as ExceptionHandler;
+//use Flugg\Responder\Exceptions\Handler as ExceptionHandler;
+use Flugg\Responder\Exceptions\ConvertsExceptions;
+use Flugg\Responder\Exceptions\Http\HttpException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
+    use ConvertsExceptions;
+
     /**
      * A list of the exception types that are not reported.
      *
@@ -49,7 +52,12 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if(str_is($request->getHost(), config('rekuovers.domain.api'))) {
-            $request->headers->set('Accept', 'application/json', true);
+            //$request->headers->set('Accept', 'application/json', true);
+            $this->convertDefaultException($exception);
+
+            if ($exception instanceof HttpException) {
+                return $this->renderResponse($exception);
+            }
         }
 
         return parent::render($request, $exception);

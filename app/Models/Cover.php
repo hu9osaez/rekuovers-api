@@ -56,7 +56,7 @@ class Cover extends Model implements Transformable
      */
     public function likes()
     {
-        return $this->hasMany(Like::class);
+        return $this->hasMany(Like::class, 'cover_id', 'id');
     }
 
     /**

@@ -8,8 +8,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements AuditableContract, Transformable
+class User extends Authenticatable implements AuditableContract, Transformable, JWTSubject
 {
     use Auditable, Notifiable, SoftDeletes, Uuids;
 
@@ -56,6 +57,10 @@ class User extends Authenticatable implements AuditableContract, Transformable
         'deleted_at'
     ];
 
+    public $incrementing = false;
+
+    protected $primaryKey = 'uuid';
+
     /**
      * The table associated with the model.
      *
@@ -80,7 +85,7 @@ class User extends Authenticatable implements AuditableContract, Transformable
      */
     public function likes()
     {
-        return $this->hasMany(Like::class);
+        return $this->hasMany(Like::class, 'user_id', 'id');
     }
 
     /**
@@ -119,5 +124,25 @@ class User extends Authenticatable implements AuditableContract, Transformable
     public function transformer()
     {
         return UserTransformer::class;
+    }
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

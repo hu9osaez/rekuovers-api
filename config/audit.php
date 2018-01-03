@@ -36,7 +36,7 @@ return [
     */
 
     'user' => [
-        'primary_key' => 'id',
+        'primary_key' => 'uuid',
         'foreign_key' => 'user_id',
         'model'       => App\Models\User::class,
         'resolver'    => function () {

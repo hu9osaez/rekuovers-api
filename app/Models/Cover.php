@@ -5,10 +5,11 @@ use App\Transformers\CoverTransformer;
 use Cviebrock\EloquentTaggable\Taggable;
 use Flugg\Responder\Contracts\Transformable;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Cover extends Model implements Transformable
 {
-    use Taggable, Uuids;
+    use Searchable, Taggable, Uuids;
 
     /**
      * The attributes that should be casted to native types.
@@ -77,6 +78,29 @@ class Cover extends Model implements Transformable
     public function song()
     {
         return $this->belongsTo(Song::class, 'song_id', 'id');
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        return [
+            'youtube_id'  => $this->youtube_id,
+            'description' => $this->description
+        ];
+    }
+
+    /**
+     * Get the index name for the model.
+     *
+     * @return string
+     */
+    public function searchableAs()
+    {
+        return 'covers_index';
     }
 
     /**

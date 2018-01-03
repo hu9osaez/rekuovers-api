@@ -42,11 +42,7 @@ class CoverController extends BaseController
             return responder()->error()->respond(400);
         }
 
-        $result = $this->cover->whereHas('song', function($query) use ($q) {
-            $query->where('title', 'like', "%{$q}%");
-            $query->orWhere('slug', 'like', "%{$q}%");
-        })
-        ->paginate();
+        $result = $this->cover->search($q)->paginate();
 
         return responder()->success($result)->respond();
     }

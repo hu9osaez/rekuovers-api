@@ -13,7 +13,7 @@ class LoginListener
      */
     public function handle(UserLoggedIn $event)
     {
-        $user = User::find($event->userId);
+        $user = User::whereId($event->userId)->firstOrFail();
         $user->last_signin = now();
         $user->last_signin_ip = request()->ip();
         $user->save();

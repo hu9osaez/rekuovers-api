@@ -30,9 +30,14 @@ class AuthController extends BaseController
         $mToken = new Token();
         $mToken->token = $issuedToken;
 
-        return responder()->success($mToken)->toArray();
+        return responder()->success($mToken)->respond();
     }
 
+    /**
+     * @param SignUpRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
     public function signUp(SignUpRequest $request) {
         $user = new User();
 
@@ -43,14 +48,17 @@ class AuthController extends BaseController
 
         throw_unless($user->save(), \Illuminate\Auth\AuthenticationException::class);
 
+        $rUser = $user->refresh();
+
+        throw_unless($issuedToken = \JWTAuth::fromUser($rUser), \Illuminate\Auth\AuthenticationException::class);
+
         event(new UserSignedUp($user->id));
-        event(new UserLoggedIn($user->id));
+        event(new UserLoggedIn($rUser->id));
 
-        $user->refresh();
+        $mToken = new Token();
+        $mToken->token = $issuedToken;
 
-        $authentication = new Authentication($user->api_token);
-
-        return responder()->success($authentication)->respond();
+        return responder()->success($mToken)->respond();
     }
 
     public function me() {

@@ -14,7 +14,7 @@ class SignUpListener
      */
     public function handle(UserSignedUp $event)
     {
-        $user = User::find($event->userId);
+        $user = User::whereId($event->userId)->firstOrFail();
 
         $user->notify(new UserWelcome());
     }

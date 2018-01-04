@@ -22,7 +22,7 @@ class LikeController extends BaseController
 
         $like = Like::where([
             ['cover_id', '=', $cover->id],
-            ['user_id', '=', auth()->id()]
+            ['user_id', '=', auth()->user()->id]
         ]);
 
         if(!$like->exists()) {
@@ -41,12 +41,12 @@ class LikeController extends BaseController
 
         $like = Like::withTrashed()->where([
             ['cover_id', '=', $cover->id],
-            ['user_id', '=', auth()->id()]
+            ['user_id', '=', auth()->user()->id]
         ])->first();
 
         if (is_null($like)) {
             Like::create([
-                'user_id' => auth()->id(),
+                'user_id' => auth()->user()->id,
                 'cover_id' => $cover->id
             ]);
 

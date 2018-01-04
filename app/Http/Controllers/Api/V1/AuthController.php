@@ -57,6 +57,9 @@ class AuthController extends BaseController
         return responder()->success($mToken)->respond();
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function refresh() {
         $token = request()->attributes->get('x-token');
 
@@ -65,6 +68,9 @@ class AuthController extends BaseController
         return responder()->success($mToken)->respond();
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function me() {
         return responder()->success(auth()->user())->respond();
     }

@@ -16,5 +16,6 @@ class SongsTableSeeder extends Seeder
         Song::create(['title' => 'We don\'t talk anymore'])->artists()->attach([3,4]);
         Song::create(['title' => 'Fake love'])->artists()->attach(5);
         Song::create(['title' => 'One Dance'])->artists()->attach(5);
+        Song::create(['title' => 'Privacy'])->addArtists('Chris Brown');
     }
 }

@@ -57,6 +57,11 @@ class CoversTableSeeder extends Seeder
                 'song_id' => null,
                 'youtube_id' => '9ygrq7in_uI',
                 'description' => 'Charlie Puth - Attention - Cover (Fingerstyle Guitar)',
+            ],
+            [
+                'song_id' => 5,
+                'youtube_id' => 'ny9rG50Ve08',
+                'description' => 'Privacy - Chris Brown (JamieBoy Cover)'
             ]
         ];
 

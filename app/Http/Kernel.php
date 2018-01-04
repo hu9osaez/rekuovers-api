@@ -1,7 +1,6 @@
-<?php
+<?php namespace App\Http;
 
-namespace App\Http;
-
+use App\Http\Middleware\CustomJWTRefresh;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\TrimStrings;
@@ -72,5 +71,6 @@ class Kernel extends HttpKernel
         'can' => Authorize::class,
         'guest' => RedirectIfAuthenticated::class,
         'throttle' => ThrottleRequests::class,
+        'custom.jwt.refresh' => CustomJWTRefresh::class,
     ];
 }

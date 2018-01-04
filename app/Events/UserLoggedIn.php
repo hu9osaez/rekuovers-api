@@ -5,18 +5,18 @@ class UserLoggedIn extends Event
     /**
      * Identifier of the signed in user
      *
-     * @var int
+     * @var \App\Models\User
      */
-    public $userId;
+    public $user;
 
     /**
      * Create a new event instance.
      *
-     * @param int $userId the primary key of the user who was just authenticated.
+     * @param \App\Models\User $user
      *
      */
-    public function __construct($userId)
+    public function __construct($user)
     {
-        $this->userId = $userId;
+        $this->user = $user;
     }
 }

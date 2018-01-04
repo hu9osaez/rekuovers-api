@@ -25,10 +25,10 @@ class AuthController extends BaseController
 
         throw_unless($issuedToken = auth()->attempt($credentials), AuthorizationException::class);
 
-        event(new UserLoggedIn(auth()->id()));
+        /** @noinspection PhpParamsInspection */
+        event(new UserLoggedIn(auth()->user()));
 
-        $mToken = new Token();
-        $mToken->token = $issuedToken;
+        $mToken = new Token(['token' => $issuedToken]);
 
         return responder()->success($mToken)->respond();
     }
@@ -47,16 +47,20 @@ class AuthController extends BaseController
         $user->password = $request->password;
 
         throw_unless($user->save(), \Illuminate\Auth\AuthenticationException::class);
+        throw_unless($issuedToken = \JWTAuth::fromUser($user), \Illuminate\Auth\AuthenticationException::class);
 
-        $rUser = $user->refresh();
+        event(new UserSignedUp($user));
+        event(new UserLoggedIn($user));
 
-        throw_unless($issuedToken = \JWTAuth::fromUser($rUser), \Illuminate\Auth\AuthenticationException::class);
+        $mToken = new Token(['token' => $issuedToken]);
 
-        event(new UserSignedUp($rUser->id));
-        event(new UserLoggedIn($rUser->id));
+        return responder()->success($mToken)->respond();
+    }
 
-        $mToken = new Token();
-        $mToken->token = $issuedToken;
+    public function refresh() {
+        $token = request()->attributes->get('x-token');
+
+        $mToken = new Token(['token' => $token]);
 
         return responder()->success($mToken)->respond();
     }

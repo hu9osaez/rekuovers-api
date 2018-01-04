@@ -1,7 +1,6 @@
 <?php namespace App\Listeners;
 
 use App\Events\UserLoggedIn;
-use App\Models\User;
 
 class LoginListener
 {
@@ -13,7 +12,7 @@ class LoginListener
      */
     public function handle(UserLoggedIn $event)
     {
-        $user = User::whereId($event->userId)->firstOrFail();
+        $user = $event->user;
         $user->last_signin = now();
         $user->last_signin_ip = request()->ip();
         $user->save();

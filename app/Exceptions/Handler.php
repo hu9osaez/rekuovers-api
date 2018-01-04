@@ -4,7 +4,9 @@ use Exception;
 //use Flugg\Responder\Exceptions\Handler as ExceptionHandler;
 use Flugg\Responder\Exceptions\ConvertsExceptions;
 use Flugg\Responder\Exceptions\Http\HttpException;
+use Flugg\Responder\Exceptions\Http\UnauthorizedException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -51,6 +53,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        $this->convert($exception, [
+            UnauthorizedHttpException::class => UnauthorizedException::class
+        ]);
+
         if(str_is($request->getHost(), config('rekuovers.domain.api'))) {
             //$request->headers->set('Accept', 'application/json', true);
             $this->convertDefaultException($exception);

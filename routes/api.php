@@ -18,6 +18,7 @@ Route::group(['namespace' => 'Api\V1'], function () {
     Route::post('auth/facebook', 'OAuthController@facebook');
 
     Route::get('me', 'AuthController@me')->middleware('auth:api');
+    Route::get('refresh', 'AuthController@refresh')->middleware('custom.jwt.refresh');
 
     //Route::get('artists/search', 'ArtistController@search')->name('artists.search');
     //Route::get('artists/{uuid}', 'ArtistController@show')->name('artists.show');

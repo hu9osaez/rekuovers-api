@@ -16,6 +16,8 @@ class TokenTransformer extends Transformer
         return [
             'token_type' => 'bearer',
             'access_token' => $model->token,
+            'expires_in' => config('jwt.ttl')*60,
+            'refresh_to' => now()->addMinutes(config('jwt.refresh_ttl'))->timestamp
         ];
     }
 }

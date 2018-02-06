@@ -16,10 +16,8 @@ class AuthController extends BaseController
      * @throws \Throwable
      */
     public function login(LoginRequest $request) {
-        $loginField = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-
         $credentials = [
-            $loginField => $request->login,
+            'email' => $request->email,
             'password' => $request->password
         ];
 

@@ -7,6 +7,7 @@ use App\Http\Requests\Api\V1\SignUpRequest;
 use App\Models\Token;
 use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
+use JWTAuth;
 
 class AuthController extends BaseController
 {
@@ -64,6 +65,17 @@ class AuthController extends BaseController
         $mToken = new Token(['token' => $token]);
 
         return responder()->success($mToken)->respond();
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function logout() {
+        $token = JWTAuth::getToken();
+        JWTAuth::invalidate($token);
+
+        return responder()->success(['message' => 'ok'])->respond();
     }
 
     /**

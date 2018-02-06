@@ -13,9 +13,13 @@
 Route::group(['namespace' => 'Api\V1'], function () {
 
     Route::post('auth/facebook', 'SocialAuthController@facebook');
+
     Route::post('auth/signup', 'AuthController@signUp');
     Route::post('auth/login', 'AuthController@login');
     Route::get('auth/refresh', 'AuthController@refresh')->middleware('custom.jwt.refresh');
+
+    Route::get('auth/logout', 'AuthController@logout')->middleware('auth:api');
+
     Route::get('auth/me', 'AuthController@me')->middleware('auth:api');
 
     //Route::get('artists/search', 'ArtistController@search')->name('artists.search');

@@ -45,11 +45,9 @@ class Handler extends ExceptionHandler
     }
 
     /**
-     * Render an exception into an HTTP response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param Exception $exception
+     * @return \Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function render($request, Exception $exception)
     {
@@ -57,7 +55,7 @@ class Handler extends ExceptionHandler
             UnauthorizedHttpException::class => UnauthorizedException::class
         ]);
 
-        if(str_is($request->getHost(), config('rekuovers.domain.api'))) {
+        if($this->isApiCall($request)) {
             //$request->headers->set('Accept', 'application/json', true);
             $this->convertDefaultException($exception);
 
@@ -67,5 +65,14 @@ class Handler extends ExceptionHandler
         }
 
         return parent::render($request, $exception);
+    }
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return bool
+     */
+    protected function isApiCall($request)
+    {
+        return $request->segment(1) == 'api';
     }
 }

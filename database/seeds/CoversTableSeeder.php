@@ -35,7 +35,7 @@ class CoversTableSeeder extends Seeder
             ],
             [
                 'song_id' => null,
-                'youtube_id' => 'fiua4M4nw7M',
+                'youtube_id' => 'sxiP9d9c448',
                 'description' => 'We Don\'t Talk Anymore | Charlie Puth ft Selena Gomez (Alex G & TJ Brown Loop Pedal Cover)',
             ],
             [
@@ -57,6 +57,11 @@ class CoversTableSeeder extends Seeder
                 'song_id' => null,
                 'youtube_id' => '9ygrq7in_uI',
                 'description' => 'Charlie Puth - Attention - Cover (Fingerstyle Guitar)',
+            ],
+            [
+                'song_id' => null,
+                'youtube_id' => 'fqtt1CfO5oo',
+                'description' => 'FILTHY - Justin Timberlake (Travis Garland Cover)',
             ],
             [
                 'song_id' => 5,

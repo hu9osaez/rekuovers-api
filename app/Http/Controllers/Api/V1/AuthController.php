@@ -77,11 +77,4 @@ class AuthController extends BaseController
 
         return responder()->success(['message' => 'ok'])->respond();
     }
-
-    /**
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function me() {
-        return responder()->success(auth()->user())->respond();
-    }
 }

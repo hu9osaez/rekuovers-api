@@ -20,7 +20,8 @@ Route::group(['namespace' => 'Api\V1'], function () {
 
     Route::get('auth/logout', 'AuthController@logout')->middleware('auth:api');
 
-    Route::get('auth/me', 'AuthController@me')->middleware('auth:api');
+    Route::get('me', 'MeController@me')->middleware('auth:api');
+    Route::get('me/liked-covers', 'MeController@likedCoversIds')->middleware('auth:api');
 
     //Route::get('artists/search', 'ArtistController@search')->name('artists.search');
     //Route::get('artists/{uuid}', 'ArtistController@show')->name('artists.show');

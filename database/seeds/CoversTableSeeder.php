@@ -67,7 +67,17 @@ class CoversTableSeeder extends Seeder
                 'song_id' => 5,
                 'youtube_id' => 'ny9rG50Ve08',
                 'description' => 'Privacy - Chris Brown (JamieBoy Cover)'
-            ]
+            ],
+            [
+                'song_id' => null,
+                'youtube_id' => '9VrXF729ax4',
+                'description' => 'JUSTIN TIMBERLAKE - Cry Me A River'
+            ],
+            [
+                'song_id' => null,
+                'youtube_id' => 'KUk3WpGo-Q8',
+                'description' => 'DO YOU (Acoustic) - Miguel (Travis Garland Cover)'
+            ],
         ];
 
         foreach ($covers as $cover) {

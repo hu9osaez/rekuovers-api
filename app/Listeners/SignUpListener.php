@@ -1,7 +1,6 @@
 <?php namespace App\Listeners;
 
 use App\Events\UserSignedUp;
-use App\Models\User;
 use App\Notifications\UserWelcome;
 
 class SignUpListener
@@ -15,7 +14,9 @@ class SignUpListener
     public function handle(UserSignedUp $event)
     {
         $user = $event->user;
+        $user->confirmed = true;
+        $user->save();
 
-        $user->notify(new UserWelcome());
+        //$user->notify(new UserWelcome());
     }
 }

@@ -10,7 +10,7 @@
         "cviebrock/eloquent-taggable": "^3.2",
         "doctrine/dbal": "^2.5",
         "fideloper/proxy": "~3.3",
-        "flugger/laravel-responder": "^2.0",
+        "flugger/laravel-responder": "^3.0",
         "laravel/framework": "^5.5",
         "laravel/scout": "^3.0",
         "laravel/socialite": "^3.0",

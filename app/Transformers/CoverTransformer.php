@@ -40,6 +40,7 @@ class CoverTransformer extends Transformer
             'id'           => $cover->uuid,
             'song'         => $song['title'],
             'youtube_id'   => $cover->youtube_id,
+            'name'         => $cover->name,
             'description'  => $cover->description,
             'likes'        => $cover->likes->count(),
             //'artists'    => $artists,

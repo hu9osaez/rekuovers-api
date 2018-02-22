@@ -31,6 +31,7 @@ class Cover extends Model implements Transformable
         'song_id',
         'publisher_id',
         'youtube_id',
+        'name',
         'description'
     ];
 
@@ -90,7 +91,8 @@ class Cover extends Model implements Transformable
     {
         return [
             'youtube_id'  => $this->youtube_id,
-            'description' => $this->description
+            'name' => $this->name,
+            'description' => $this->description,
         ];
     }
 

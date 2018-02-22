@@ -12,7 +12,7 @@ class CoverTransformer extends Transformer
     /**
      * Transform the model.
      *
-     * @param  \App\Models\Cover $cover
+     * @param  Cover $cover
      * @return array
      */
     public function transform(Cover $cover)
@@ -44,6 +44,10 @@ class CoverTransformer extends Transformer
             'likes'        => $cover->likes->count(),
             //'artists'    => $artists,
             'tags'         => $tags,
+            'publisher'    => [
+                'name' => $cover->publisher->name,
+                'username' => $cover->publisher->username,
+            ],
             'published_at' => $cover->created_at->timestamp
         ];
     }

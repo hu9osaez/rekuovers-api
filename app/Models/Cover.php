@@ -47,7 +47,8 @@ class Cover extends Model implements Transformable
      * @var array
      */
     protected $with = [
-        'likes'
+        'likes',
+        'publisher',
     ];
 
     /**

@@ -78,13 +78,101 @@ class CoversTableSeeder extends Seeder
                 'youtube_id' => 'KUk3WpGo-Q8',
                 'name' => 'DO YOU (Acoustic) - Miguel (Travis Garland Cover)'
             ],
+            [
+                'song_id' => null,
+                'youtube_id' => 'b6fepBtNgVM',
+                'name' => 'HAVANA - CAMILA CABELLO (English + Spanish Cover)'
+            ],
+            [
+                'song_id' => null,
+                'youtube_id' => '4ZIZof_N1GY',
+                'name' => 'MASK OFF [acoustic] - Future (Travis Garland Cover)'
+            ],
+            [
+                'song_id' => null,
+                'youtube_id' => '5wLXwnNSxHI',
+                'name' => 'Dilemma (Remix) - Nelly ft. Kelly Rowland [Lil Crazed ft. Rin from Rin on the Rox]'
+            ],
+            [
+                'song_id' => null,
+                'youtube_id' => '5n19hMu4yW0',
+                'name' => 'Fix You - Coldplay - Acoustic Cover by Tyler Ward & Boyce Avenue'
+            ],
+            [
+                'song_id' => null,
+                'youtube_id' => 'bwnGM_I2WPk',
+                'name' => 'Backstreet Boys - I Want It That Way (Boyce Avenue acoustic cover)'
+            ],
+            [
+                'song_id' => null,
+                'youtube_id' => 'fvEZUbzqqyM',
+                'name' => 'Mirrors - Justin Timberlake (Boyce Avenue feat. Fifth Harmony cover)'
+            ],
+            [
+                'song_id' => null,
+                'youtube_id' => 'XfwIargXt28',
+                'name' => 'Mirrors- Justin Timberlake (Acoustic Cover) | Gardiner Sisters'
+            ],
+            [
+                'song_id' => null,
+                'youtube_id' => 'oHGnhZkELIo',
+                'name' => 'Cold - Maroon 5 (Aspen Cover)'
+            ],
+            [
+                'song_id' => null,
+                'youtube_id' => 'yyXpcA9Cmc8',
+                'name' => 'The Weeknd - Starboy (Fabian Wegerer Cover)'
+            ],
+            [
+                'song_id' => null,
+                'youtube_id' => 'RY_ZDeF9YWQ',
+                'name' => 'Closer - The Chainsmokers (ft. Halsey) (William Singe Cover)'
+            ],
+            [
+                'song_id' => null,
+                'youtube_id' => 'f7_KFk8aUKg',
+                'name' => 'Ignition x Don\'t Mind - R. Kelly & Kent Jones (William Singe Mashup Cover)'
+            ],
+            [
+                'song_id' => null,
+                'youtube_id' => 'vlZ9kjCrGJw',
+                'name' => 'ADELE - HELLO (COVER BY LEROY SANCHEZ)'
+            ],
+            [
+                'song_id' => null,
+                'youtube_id' => 'rO7oDZZb7K0',
+                'name' => 'Hotline Bling by Drake | Cover by Alex Aiono'
+            ],
+            [
+                'song_id' => null,
+                'youtube_id' => '7gh1MV0WuO4',
+                'name' => 'Love Yourself by Justin Bieber | Cover by Alex Aiono'
+            ],
+            [
+                'song_id' => null,
+                'youtube_id' => 'iq9YTSkOr1Y',
+                'name' => 'Fake Love - Drake - Cover (fingerstyle guitar)'
+            ],
         ];
 
         foreach ($covers as $cover) {
+
+            $dates = [
+                now(),
+                now()->subDays(3),
+                now()->subDays(rand(1, 8)),
+                now()->subWeeks(1),
+                now()->subWeeks(rand(1, 5)),
+            ];
+
+            $date = array_random($dates);
+
             $nCover = new Cover;
             $nCover->song_id     = $cover['song_id'];
             $nCover->youtube_id  = $cover['youtube_id'];
-            $nCover->name = $cover['name'];
+            $nCover->name        = $cover['name'];
+            $nCover->created_at  = $date;
+            $nCover->updated_at  = $date;
             $nCover->save();
         }
     }

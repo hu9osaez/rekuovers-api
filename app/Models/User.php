@@ -25,7 +25,6 @@ class User extends Authenticatable implements AuditableContract, Transformable, 
         'username'    => 'string',
         'email'       => 'string',
         'facebook_id' => 'string',
-        'api_token'   => 'string'
     ];
 
     /**
@@ -51,7 +50,6 @@ class User extends Authenticatable implements AuditableContract, Transformable, 
         'facebook_id',
         'confirmation_code',
         'last_signin_ip',
-        'api_token',
         'remember_token',
         'updated_at',
         'deleted_at'

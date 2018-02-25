@@ -16,7 +16,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     return [
         'uuid' => $faker->uuid,
         'name' => $faker->name,
-        'username' => $faker->userName,
+        'username' => $faker->regexify('[a-zA-Z0-9]{4,7}'),
         'email' => $faker->unique()->safeEmail,
         'password' => \Hash::make('hola123')
     ];

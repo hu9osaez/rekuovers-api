@@ -12,7 +12,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $users = factory(User::class)->times(3)->make();
+        $users = factory(User::class)->times(150)->make();
 
         $data = array_map(function ($value) {
             return $value->getAttributes();

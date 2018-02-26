@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers\Api\V1;
 
+use App\Exceptions\CoverDoesNotExistException;
 use App\Models\Cover;
 
 class CoverController extends BaseController
@@ -29,12 +30,6 @@ class CoverController extends BaseController
         return responder()->success($covers)->respond();
     }
 
-    public function random() {
-        $cover = $this->cover->inRandomOrder()->first();
-
-        return responder()->success($cover)->respond();
-    }
-
     public function search() {
         $q = request()->input('q');
 
@@ -48,10 +43,10 @@ class CoverController extends BaseController
     }
 
     public function show($uuid) {
-        $cover = $this->cover->byUuid($uuid);
+        $cover = $this->cover->whereUuid($uuid)->first();
 
         if(!$cover) {
-            return responder()->error()->respond(404);
+            throw new CoverDoesNotExistException();
         }
 
         return responder()->success($cover)->respond();

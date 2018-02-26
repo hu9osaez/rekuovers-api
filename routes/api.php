@@ -35,6 +35,7 @@ Route::group(['namespace' => 'Api\V1'], function () {
     Route::get('covers/search', 'CoverController@search')->name('covers.search');
     Route::get('covers/{uuid}', 'CoverController@show')->name('covers.show');
 
-    Route::get('covers/{uuid}/likes/exists', 'LikeController@exists')->middleware('auth:api');
+    //Route::get('covers/{uuid}/likes/exists', 'LikeController@exists')->middleware('auth:api');
     Route::post('covers/{uuid}/likes', 'LikeController@store')->middleware('auth:api');
+    Route::delete('covers/{uuid}/likes', 'LikeController@delete')->middleware('auth:api');
 });

@@ -44,6 +44,6 @@ trait Uuids
 
         $results = $query->where('uuid', $uuid);
 
-        return $first ? $results->firstOrFail() : $results;
+        return $first ? $results->first() : $results;
     }
 }

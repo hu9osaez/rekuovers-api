@@ -17,7 +17,6 @@ class CoverTransformer extends Transformer
      */
     public function transform(Cover $cover)
     {
-
         $song = $this->getSongById($cover->song_id);
 
         /*
@@ -29,12 +28,14 @@ class CoverTransformer extends Transformer
         })->toArray();
         */
 
-        $tags = $this->getTagsByCoverId($cover->id)->map(function ($t) {
-            return [
-                'slug' => $t->normalized,
-                'name' => $t->name
-            ];
-        })->toArray();
+        $tags = $this->getTagsByCoverId($cover->id)
+            ->map(function ($t) {
+                return [
+                    'name' => $t->name,
+                    'slug' => $t->normalized,
+                ];
+            })
+            ->toArray();
 
         return [
             'id'           => $cover->uuid,

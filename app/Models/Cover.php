@@ -1,15 +1,17 @@
 <?php namespace App\Models;
 
+use App\ModelFilters\CoverFilter;
 use App\Traits\Uuids;
 use App\Transformers\CoverTransformer;
 use Cviebrock\EloquentTaggable\Taggable;
+use EloquentFilter\Filterable;
 use Flugg\Responder\Contracts\Transformable;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 
 class Cover extends Model implements Transformable
 {
-    use Searchable, Taggable, Uuids;
+    use Filterable, Searchable, Taggable, Uuids;
 
     /**
      * The attributes that should be casted to native types.
@@ -80,6 +82,11 @@ class Cover extends Model implements Transformable
     public function song()
     {
         return $this->belongsTo(Song::class, 'song_id', 'id');
+    }
+
+    public function modelFilter()
+    {
+        return $this->provideFilter(CoverFilter::class);
     }
 
     /**

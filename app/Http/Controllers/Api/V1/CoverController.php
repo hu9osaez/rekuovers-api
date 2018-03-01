@@ -5,11 +5,29 @@ use App\Models\Cover;
 
 class CoverController extends BaseController
 {
+    /**
+     * @var Cover $cover
+     */
     private $cover;
 
     public function __construct(Cover $cover)
     {
         $this->cover = $cover;
+    }
+
+    public function index() {
+        if(empty(request()->query())) {
+            $covers = $this->cover
+                ->latest()
+                ->paginate();
+        }
+        else {
+            $covers = $this->cover
+                ->filter(request()->query())
+                ->paginate();
+        }
+
+        return responder()->success($covers)->respond();
     }
 
     public function newest() {
@@ -24,22 +42,10 @@ class CoverController extends BaseController
         $covers = $this->cover->withCount('likes')
             ->having('likes_count', '>=', 10)
             ->orderBy('likes_count', 'desc')
-            ->take(7)
+            ->take(10)
             ->get();
 
         return responder()->success($covers)->respond();
-    }
-
-    public function search() {
-        $q = request()->input('q');
-
-        if(is_null($q)) {
-            return responder()->error()->respond(400);
-        }
-
-        $result = $this->cover->search($q)->paginate();
-
-        return responder()->success($result)->respond();
     }
 
     public function show($uuid) {

@@ -19,6 +19,7 @@
         "ramsey/uuid": "^3.7",
         "rap2hpoutre/laravel-log-viewer": "^0.10.4",
         "spatie/laravel-cors": "^1.0",
+        "tucker-eric/eloquentfilter": "^1.2",
         "tymon/jwt-auth": "1.0.0-rc.1",
         "yab/laravel-scout-mysql-driver": "^2.0"
     },

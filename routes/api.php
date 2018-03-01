@@ -29,10 +29,9 @@ Route::group(['namespace' => 'Api\V1'], function () {
     //Route::get('songs/search', 'SongController@search')->name('songs.search');
     //Route::get('songs/{uuid}', 'SongController@show')->name('songs.show');
 
+    Route::get('covers', 'CoverController@index')->name('covers.index');
     Route::get('covers/newest', 'CoverController@newest')->name('covers.newest');
     Route::get('covers/popular', 'CoverController@popular')->name('covers.popular');
-    Route::get('covers/random', 'CoverController@random')->name('covers.random');
-    Route::get('covers/search', 'CoverController@search')->name('covers.search');
     Route::get('covers/{uuid}', 'CoverController@show')->name('covers.show');
 
     //Route::get('covers/{uuid}/likes/exists', 'LikeController@exists')->middleware('auth:api');
